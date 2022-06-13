@@ -2,7 +2,7 @@
 
     class Database {
 
-        private static instance = null;
+        private static $instance = null;
         private $conn;
 
         private $server = "localhost";
@@ -12,16 +12,16 @@
 
         private function __construct() {
 
-            $this->conn = new mysqli($server, $username, $password, $dbname) or die($this->conn);
+            $this->conn = new mysqli($this->server, $this->username, $this->password, $this->dbname) or die($this->conn);
         }
 
         public static function getInstance() {
 
-            if(!self::instance) {
-                self::instance = new Database();
+            if(!self::$instance) {
+                self::$instance = new Database();
             }
 
-            return self::instance;
+            return self::$instance;
         }
 
         public function getDBConnection() {
