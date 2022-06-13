@@ -109,7 +109,7 @@ CREATE TABLE `role` (
   `role_name` varchar(255) NOT NULL,
   `role_desc` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,6 +118,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'student','uitm johor student'),(2,'mpp','uitm segamat mpp');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +135,7 @@ CREATE TABLE `submission` (
   `attached_file` varchar(255) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
-  `sub_status` varchar(100) NOT NULL,
+  `sub_status` varchar(100) NOT NULL DEFAULT 'IN PROGRESS',
   `user_id` int(11) NOT NULL,
   `club_id` int(11) NOT NULL,
   PRIMARY KEY (`sub_id`),
@@ -195,4 +196,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-13 15:05:45
+-- Dump completed on 2022-06-13 23:20:26
