@@ -1,18 +1,18 @@
 <?php
 
-    include '../model/database.php';
+    include_once '../model/database.php';
 
 
     class User {
 
-        public $matrix_no
-        public $user_name
-        public $user_gender
-        public $user_password
-        public $user_phone
-        public $user_email
-        public $created_at
-        public $updated_at
+        public $matrix_no;
+        public $user_name;
+        public $user_gender;
+        public $user_password;
+        public $user_phone;
+        public $user_email;
+        public $created_at;
+        public $updated_at;
 
         public function create() 
         {
@@ -21,13 +21,13 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            $sql = "INSERT INTO user(matrix_no, user_name, user_gender, user_password, user_email, created_at, updated_at, user_status)
-            VALUES($this->matrix_no, $this->user_name, $this->user_gender, $this->user_password, $this->user_phone, $this->user_email, $this->created_at, $this->created_at)";
+            $sql = "INSERT INTO user(matrix_no, user_name, user_gender, user_password, user_phone, user_email, created_at, updated_at)
+            VALUES('$this->matrix_no', '$this->user_name', '$this->user_gender', '$this->user_password', '$this->user_phone', '$this->user_email', '$this->created_at', '$this->created_at')";
 
             if($conn->query($sql) === TRUE) {
                 echo "User created successfully!";
             }else {
-                echo  "Error: " . $sql
+                echo  "Error: " . $sql;
             }
 
             $conn->close();
@@ -75,7 +75,7 @@
             if($conn->query($sql) === TRUE) {
                 echo "User updated successfully!";
             }else {
-                echo  "Error: " . $sql
+                echo  "Error: " . $sql;
             }
 
             $conn->close();
