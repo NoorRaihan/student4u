@@ -1,5 +1,5 @@
 <?php
-    require_once('../model/database.php');
+    include_once '../model/database.php';
     include '../model/User.php';
 
     $instance = Database::getInstance();
