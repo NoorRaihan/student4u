@@ -6,4 +6,6 @@
     $conn = $instance->getDBConnection();
 
     var_dump($conn);
+    echo strftime('%Y-%m-%d %H:%M:%S');
+
 ?>
