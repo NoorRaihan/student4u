@@ -2,6 +2,7 @@
 
     include_once '../model/database.php';
     include_once '../model/User.php';
+    include_once '../model/AssignRole.php';
 
     //get a DB connection
     $instance = Database::getInstance();
@@ -9,6 +10,7 @@
 
     $matrix = $conn->real_escape_string($_POST['matrix']);
     $password = $conn->real_escape_string($_POST['password']);
+    $role = $conn->real_escape_string($_POST['role']);
 
     $user = User::get_user(NULL, $matrix);
     //var_dump($user['user_password']);
@@ -16,21 +18,27 @@
 
         if(password_verify($password, $user['user_password'])) {
 
-            session_start();
-            $session_id = session_create_id();
+            //get the role
+            if($user['role_id'] == $role) {
+                session_start();
+                $session_id = session_create_id();
 
-            $_SESSION['log_in'] = True;
-            $_SESSION['matrix_no'] = $user['matrix_no'];
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['id'] = $session_id;
+                $_SESSION['log_in'] = True;
+                $_SESSION['matrix_no'] = $user['matrix_no'];
+                $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['id'] = $session_id;
 
-            echo "<script>alert('Success!'); window.location.href = '../view/index.php'</script>";
-            exit();
+                echo "<script>alert('Success!'); window.location.href = '../view/index.php'</script>";
+                exit();
+            } else {
+                echo "<script>alert('Not Authorized!'); window.location.href = '../view/login.php'</script>";
+            }
+            
         } else {
-            echo "<script>alert('Wrong password')</script>";
+            echo "<script>alert('Wrong password'); window.location.href = '../view/login.php'</script>";
         }
 
     } else {
-        echo "<script>alert('Wrong matrix number')</script>";
+        echo "<script>alert('Wrong matrix number'); window.location.href = '../view/login.php'</script>";
     }
 ?>

@@ -46,7 +46,12 @@
             //convert to the integer value
             $id = intval($id); 
 
-            $sql = "SELECT * FROM user WHERE user_id = $id OR matrix_no = $matrix";
+            $sql = "SELECT user.*, assign.role_id, assign.position, role.role_desc 
+            FROM user 
+            JOIN assign ON user.user_id = assign.user_id 
+            JOIN role ON assign.role_id = role.role_id 
+            WHERE user.user_id = $id OR user.matrix_no = $matrix";
+
             $result = $conn->query($sql);
 
             if($result == TRUE) {

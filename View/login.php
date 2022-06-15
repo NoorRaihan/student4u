@@ -25,14 +25,13 @@
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <div class="text-center">
-        <input type="radio" id="mpp" name="role" value="2">
-        <label for="mpp">MPP</label>
-        <input type="radio" id="stud" name="role" value="1" style="margin-left: 40px;">
-        <label for="stud">Student</label>
-      </div>
-
       <form action="../controller/LoginController.php" method="post">
+        <div class="text-center">
+          <input type="radio" id="mpp" name="role" value="2">
+          <label for="mpp">MPP</label>
+          <input type="radio" id="stud" name="role" value="1" style="margin-left: 40px;">
+          <label for="stud">Student</label>
+        </div>
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="matrix" placeholder="Matric No">
           <div class="input-group-append">

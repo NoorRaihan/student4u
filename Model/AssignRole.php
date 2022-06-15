@@ -28,5 +28,32 @@
 
             $conn->close();
         }
+
+        public static function get_role($id,$role)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $id = intval($id);
+
+            $sql = "SELECT * FROM assign WHERE user_id = $id AND role_id = $role";
+
+            $result = $conn->query($sql);
+
+            if($result == TRUE) {
+                if($result->num_rows > 0) {
+                    $role = $result->fetch_assoc();
+                    return $role;
+                }else {
+                    return NULL;
+                }
+
+            }else {
+                echo  "Error: " . $sql;
+            }
+
+            $conn->close();
+        }
     }
 ?>
