@@ -22,7 +22,7 @@
         'time_cost' => 4
     ];
 
-    $user->user_password = password_hash($user->user_password, PASSWORD_ARGON2I, $options);
+    $user->user_password =  password_hash($user->user_password, PASSWORD_ARGON2I,$options);;
     $user->create();
 
     $curr_user = User::get_user(NULL,$user->matrix_no);

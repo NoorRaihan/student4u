@@ -1,3 +1,7 @@
+<?php
+  include '../controller/Authorize.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -39,6 +39,10 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
+            //check if the parameter is empty or not
+            $id = !empty($id) ? $id : NULL;
+            $matrix = !empty($matrix) ? $matrix : 'NULL';
+
             //convert to the integer value
             $id = intval($id); 
 

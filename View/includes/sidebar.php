@@ -1,4 +1,6 @@
-
+<?php
+  include '../controller/DashboardController.php';
+?>
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -22,7 +24,7 @@
     <ul class="navbar-nav ml-auto">
       <!-- Navbar logoutt -->
       <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+        <a class="nav-link" href="../controller/Logout.php" role="button">
           <i class="fas fa-sign-out-alt"></i>
         </a>
         <div class="navbar-search-block">
@@ -107,7 +109,7 @@
           <img src="../view/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Noor Raihan</a>
+          <a href="#" class="d-block"><?php echo $curr_user['user_name']; ?></a>
         </div>
       </div>
 
