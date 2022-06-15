@@ -24,16 +24,16 @@
             $sql = "INSERT INTO user(matrix_no, user_name, user_gender, user_password, user_phone, user_email, created_at, updated_at)
             VALUES('$this->matrix_no', '$this->user_name', '$this->user_gender', '$this->user_password', '$this->user_phone', '$this->user_email', '$this->created_at', '$this->created_at')";
 
-            if($conn->query($sql) === TRUE) {
+            if($conn->query($sql) == TRUE) {
                 echo "User created successfully!";
             }else {
                 echo  "Error: " . $sql;
             }
 
-            $conn->close();
+            
         }
 
-        public function get_user($id=NULL, $matrix=NULL) 
+        public static function get_user($id=NULL, $matrix=NULL) 
         {
             //get a DB connection
             $instance = Database::getInstance();
@@ -43,12 +43,16 @@
             $id = intval($id); 
 
             $sql = "SELECT * FROM user WHERE user_id = $id OR matrix_no = $matrix";
+            $result = $conn->query($sql);
 
-            if($result = $conn->query($sql) === TRUE) {
+            if($result == TRUE) {
                 if($result->num_rows > 0) {
                     $user = $result->fetch_assoc();
                     return $user;
+                }else {
+                    return NULL;
                 }
+
             }else {
                 echo  "Error: " . $sql;
             }
@@ -56,7 +60,7 @@
             $conn->close();
         }
 
-        public function update($id=NULL, $matrix=NULL) 
+        public function update($id=NULL) 
         {
             //get a DB connection
             $instance = Database::getInstance();
@@ -70,15 +74,34 @@
             user_phone = $this->user_phone,
             user_email = $this->user_email,
             updated_at = $timestamp
-            WHERE user_id = $id OR matrix_no = $id";
+            WHERE matrix_no = $matrix_no or user_id = $id";
 
-            if($conn->query($sql) === TRUE) {
+            if($conn->query($sql) == TRUE) {
                 echo "User updated successfully!";
             }else {
                 echo  "Error: " . $sql;
             }
 
             $conn->close();
+        }
+
+        public function delete($id=NULL)
+        {
+
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "DELETE FROM user WHERE matrix_no = $matrix_no or user_id = $id";
+
+            if($conn->query($sql) == TRUE) {
+                echo "User deleted successfully!";
+            }else {
+                echo  "Error: " . $sql;
+            }
+
+            $conn->close();
+
         }
     }
 

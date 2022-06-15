@@ -1,6 +1,7 @@
 <?php
     include_once '../model/database.php';
-    include '../model/User.php';
+    include_once '../model/User.php';
+    include_once '../model/AssignRole.php';
 
     $instance = Database::getInstance();
     $conn = $instance->getDBConnection();
@@ -23,6 +24,13 @@
 
     $user->user_password = password_hash($user->user_password, PASSWORD_ARGON2I, $options);
     $user->create();
+
+    $curr_user = User::get_user(NULL,$user->matrix_no);
+
+    $assign = new Assign();
+    $assign->user_id = $curr_user['user_id'];
+    $assign->role_id = 2;
+    $assign->create();
 
     include '../view/register.php';
 ?>

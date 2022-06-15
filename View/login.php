@@ -8,11 +8,11 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../view/plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="../view/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../view/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -25,9 +25,9 @@
       <p class="login-box-msg">Sign in to start your session</p>
 
       <div class="text-center">
-        <input type="radio" id="mpp" name="mpp" value="2">
+        <input type="radio" id="mpp" name="role" value="2">
         <label for="mpp">MPP</label>
-        <input type="radio" id="stud" name="stud" value="1" style="margin-left: 40px;">
+        <input type="radio" id="stud" name="role" value="1" style="margin-left: 40px;">
         <label for="stud">Student</label>
       </div>
 
@@ -57,7 +57,7 @@
 
 
       <p class="mb-0">Do not have an account?
-        <a href="register.html" class="text-center"> Sign Up</a>
+        <a href="../view/register.php" class="text-center"> Sign Up</a>
       </p>
     </div>
     <!-- /.card-body -->
