@@ -64,17 +64,17 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form>
+              <form action="../controller/ComplaintController.php" method="post" enctype="multipart/form-data">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Complaint Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label for=" exampleInputEmail1">Complaint Description</label>
+                    <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Evidence File (if any)</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <input type="file" name="file" class="custom-file-input" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                       <div class="input-group-append">
@@ -83,14 +83,14 @@
                     </div>
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" name="hide" class="form-check-input" id="exampleCheck1">
+                    <input type="checkbox" name="hide" class="form-check-input" value="1" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Submit as Anonymous</label>
                   </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" name="submit" value="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form>
             </div>
@@ -117,5 +117,11 @@
 </div>
 <!-- ./wrapper -->
 <?php include '../view/includes/js.php' ?>
+
+<script>
+  $(function () {
+    bsCustomFileInput.init();
+  });
+</script>
 </body>
 </html>

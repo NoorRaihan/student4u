@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+    
     include '../model/database.php';
     include '../model/User.php';
 

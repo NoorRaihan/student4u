@@ -10,6 +10,8 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
+<!-- bs-custom-file-input -->
+<script src="plugins\bs-custom-file-input\bs-custom-file-input.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
@@ -32,5 +34,4 @@
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
