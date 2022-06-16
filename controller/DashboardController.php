@@ -1,7 +1,7 @@
 <?php
 
-    session_start();
-    
+    rsession_status() === PHP_SESSION_ACTIVE ?: session_start();
+
     include '../model/database.php';
     include '../model/User.php';
 

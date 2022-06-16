@@ -1,6 +1,6 @@
 <?php
 
-    session_start();
+    session_status() === PHP_SESSION_ACTIVE ?: session_start();
     include_once '../model/database.php';
     include '../model/Complaint.php';
     //get a DB connection
