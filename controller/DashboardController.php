@@ -1,8 +1,8 @@
 <?php
 
-    rsession_status() === PHP_SESSION_ACTIVE ?: session_start();
+    session_status() === PHP_SESSION_ACTIVE ?: session_start();
 
-    include '../model/database.php';
+    include_once '../model/database.php';
     include '../model/User.php';
 
     $instance = Database::getInstance();

@@ -3,11 +3,12 @@
     session_status() === PHP_SESSION_ACTIVE ?: session_start();
     include_once '../model/database.php';
     include '../model/Complaint.php';
-    //get a DB connection
-    $instance = Database::getInstance();
-    $conn = $instance->getDBConnection();
-
+    
     if(isset($_POST['submit'])) {
+
+        //get a DB connection
+        $instance = Database::getInstance();
+        $conn = $instance->getDBConnection();
 
         $complaint = new Complaint();
         $complaint->comp_desc = $conn->real_escape_string($_POST['description']);
@@ -60,7 +61,20 @@
             $complaint->attached_file = NULL;
             $complaint->create();
         }
+    }
 
+    //get all the complaint
+    function view_all_complaint()
+    {
+        //get a DB connection
+        $instance = Database::getInstance();
+        $conn = $instance->getDBConnection();
 
+        $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
+        FROM complaint
+        JOIN user ON complaint.user_id = user.user_id";
+
+        $complaints = $conn->query($sql);
+        return $complaints; 
     }
 ?>
