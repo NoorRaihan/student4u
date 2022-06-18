@@ -78,6 +78,7 @@ DROP TABLE IF EXISTS `complaint`;
 CREATE TABLE `complaint` (
   `comp_id` int(11) NOT NULL AUTO_INCREMENT,
   `comp_desc` varchar(255) NOT NULL,
+  `comp_response` varchar(255) DEFAULT NULL,
   `attached_file` varchar(255) DEFAULT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
@@ -87,7 +88,7 @@ CREATE TABLE `complaint` (
   PRIMARY KEY (`comp_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `complaint_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +97,7 @@ CREATE TABLE `complaint` (
 
 LOCK TABLES `complaint` WRITE;
 /*!40000 ALTER TABLE `complaint` DISABLE KEYS */;
-INSERT INTO `complaint` VALUES (1,'dddd','','2022-06-16','2022-06-16','IN PROGRESS',4,0),(2,'COMPLAINT EHEM2','../view/uploads/bf405914518d4e4742efe9d84d359e9b.txt','2022-06-16','2022-06-16','IN PROGRESS',4,0),(3,'COMPLAINT 2 EHEM2','../view/uploads/e7f16e1feb05db3aa122b655f582ffdc.png','2022-06-16','2022-06-16','IN PROGRESS',4,1);
+INSERT INTO `complaint` VALUES (1,'dddd',NULL,'','2022-06-16','2022-06-16','IN PROGRESS',4,0),(2,'COMPLAINT EHEM2',NULL,'../view/uploads/bf405914518d4e4742efe9d84d359e9b.txt','2022-06-16','2022-06-16','IN PROGRESS',4,0),(3,'COMPLAINT 2 EHEM2',NULL,'../view/uploads/e7f16e1feb05db3aa122b655f582ffdc.png','2022-06-16','2022-06-16','IN PROGRESS',4,1),(4,'ddddddddddddddddddddd\r\nasdsadasdas\r\ndsadsadsadsadas',NULL,'','2022-06-16','2022-06-16','IN PROGRESS',4,1);
 /*!40000 ALTER TABLE `complaint` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,6 +137,8 @@ CREATE TABLE `submission` (
   `sub_id` int(11) NOT NULL AUTO_INCREMENT,
   `sub_desc` varchar(255) NOT NULL,
   `attached_file` varchar(255) NOT NULL,
+  `subs_response` varchar(255) DEFAULT NULL,
+  `returned_file` varchar(255) DEFAULT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
   `sub_status` varchar(100) NOT NULL DEFAULT 'IN PROGRESS',
@@ -200,4 +203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-17  0:48:04
+-- Dump completed on 2022-06-18 15:26:01
