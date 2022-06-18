@@ -4,16 +4,18 @@
     include_once '../model/database.php';
     include '../model/Complaint.php';
     
-    if(isset($_POST['submit'])) {
-
+    function create_complaint($uid) 
+    {
         //get a DB connection
         $instance = Database::getInstance();
         $conn = $instance->getDBConnection();
 
+        $uid = intval($uid);
+
         $complaint = new Complaint();
         $complaint->comp_desc = $conn->real_escape_string($_POST['description']);
         $complaint->created_at = strftime('%Y-%m-%d %H:%M:%S');
-        $complaint->user_id = intval($_SESSION['user_id']);
+        $complaint->user_id = intval($uid);
         $complaint->hide = intval(!empty($_POST['hide']) ? $_POST['hide'] : NULL);
 
         if($_FILES['file']['tmp_name'] !== '') {
@@ -63,18 +65,99 @@
         }
     }
 
-    //get all the complaint
-    function view_all_complaint()
+    //edit the complaint
+    function edit_complaintByID($id,$uid)
     {
         //get a DB connection
         $instance = Database::getInstance();
         $conn = $instance->getDBConnection();
 
-        $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
-        FROM complaint
-        JOIN user ON complaint.user_id = user.user_id";
+        $id = intval($id);
+        $uid = intval($uid);
 
-        $complaints = $conn->query($sql);
-        return $complaints; 
+        $complaint = new Complaint();
+        $complaint->comp_id = $id;
+        $complaint->comp_desc = $conn->real_escape_string($_POST['description']);
+        $complaint->updated_at = strftime('%Y-%m-%d %H:%M:%S');
+        $complaint->user_id = intval($uid);
+        $complaint->hide = intval(!empty($_POST['hide']) ? $_POST['hide'] : NULL);
+
+        if($_FILES['file']['tmp_name'] !== '') {
+
+            $file = $_FILES['file'];
+    
+            //file properties;
+            $file_ext = array("txt","jpg","zip","rar","gif","png","jpeg");
+            $filename = $file['name'];
+            $file_type = $file['type'];
+            $file_size = $file['size'];
+            $file_error = $file['error'];
+            $file_tmp = $file['tmp_name'];
+    
+            //check for file format
+            $fileExplode = explode(".", $filename);
+            $file_format = strtolower(end($fileExplode));
+    
+            //sanitize the filename
+            $newFileName = md5(time().$filename) . "." . $file_format;
+    
+            //check if the file format is allow
+            if(in_array($file_format, $file_ext)) {
+    
+                $newDest = "../view/uploads/" . $newFileName;
+    
+                if(move_uploaded_file($file_tmp, $newDest)) {
+    
+                    $complaint->attached_file = $newDest;
+                    echo "update successful!";
+                    $complaint->updateByUID();
+
+                } else {
+                    echo "upload failed!";
+                }
+
+            }else{
+                echo "filetype not allowed!";
+            }
+
+        } else {
+            if($_POST['curr-file'] != NULL || $_POST != "") {
+                $complaint->attached_file = $_POST['curr-file'];
+            }else{
+                $complaint->attached_file = NULL;
+            }
+            $complaint->updateByUID();
+        }
     }
+
+    //get all the complaint
+    function view_all_complaint()
+    {
+        return Complaint::getAllComplaint();
+    }
+
+    function get_complaint_UID($id)
+    {
+        $id = intval($id);
+        $uid = intval($_SESSION['user_id']);
+        return Complaint::getComplaintByUID($id,$uid);
+    }
+
+    function get_complaint($id)
+    {
+        $id = intval($id);
+        return Complaint::getComplaintByID($id);
+    }
+
+    if(isset($_POST['submit'])) {
+        create_complaint($_SESSION['user_id']);
+    }
+
+    if(isset($_POST['update'])) {
+
+        $id = $_POST['id'];
+        $uid = $_SESSION['user_id'];
+        edit_complaintByID($id,$uid);
+    }
+
 ?>

@@ -114,10 +114,19 @@
                                     ?>
                                     <td class="complaint-data"><?php echo $data['comp_desc'] ?></td>
                                     <td><?php echo !empty($data['attached_file']) ? "<a href='".$data['attached_file']."' class='btn btn-sm btn-secondary'><i class='fas fa-file'></i></a>" : "No File Attached"?></td>
-                                    <td><span class="badge bg-warning">IN PROGRESS</span></td>
+                                    <td><span class="badge bg-warning"><?php echo $data['comp_status'] ?></span></td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
-                                        <a href="" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                        <div class="action-form">
+                                            <form action="" class="action-form-child">
+                                              <button href="complaint_view.php" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            </form>
+                                            <form action="complaint_edit.php" method="GET" class="action-form-child">
+                                              <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" href="complaint_view.php" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
+                                            </form>
+                                            <form action="">
+                                              <button href="complaint_view.php" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php
