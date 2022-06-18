@@ -79,7 +79,7 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 300px;">
+              <div class="card-body table-responsive p-0 table-complaint-parent">
                 <table class="complaint-table table table-hover table-bordered table-head-fixed text-nowrap">
                   <thead>
                     <tr>
