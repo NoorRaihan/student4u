@@ -21,7 +21,12 @@
             $conn = $instance->getDBConnection();
 
             $sql = "INSERT INTO complaint(comp_desc,attached_file,created_at,updated_at,user_id,hide)
-            VALUES('$this->comp_desc', '$this->attached_file', '$this->created_at', '$this->created_at', $this->user_id, $this->hide)";
+            VALUES('$this->comp_desc', 
+            '$this->attached_file', 
+            '$this->created_at', 
+            '$this->created_at', 
+            $this->user_id, 
+            $this->hide)";
             //var_dump($sql);
 
             if($conn->query($sql) == TRUE) {

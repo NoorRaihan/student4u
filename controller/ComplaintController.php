@@ -79,7 +79,7 @@
         $complaint->comp_id = $id;
         $complaint->comp_desc = $conn->real_escape_string($_POST['description']);
         $complaint->updated_at = strftime('%Y-%m-%d %H:%M:%S');
-        $complaint->user_id = intval($uid);
+        $complaint->user_id = $uid;
         $complaint->hide = intval(!empty($_POST['hide']) ? $_POST['hide'] : NULL);
 
         if($_FILES['file']['tmp_name'] !== '') {
