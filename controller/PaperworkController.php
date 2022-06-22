@@ -26,7 +26,7 @@
         $file = $_FILES['file'];
 
         //file properties;
-        $file_ext = array("txt","jpg","zip","rar","gif","png","jpeg");
+        $file_ext = array("txt","jpg","zip","rar","gif","png","jpeg","pdf");
         $filename = $file['name'];
         $file_type = $file['type'];
         $file_size = $file['size'];
@@ -67,7 +67,43 @@
         return Club::getAllClubs();
     }
 
+    function getAllPaperworks()
+    { 
+        return Paperwork::getAllPaperworks();
+    }
+
+    function getPaperworkByID($id)
+    {
+        return Paperwork::getPaperworkByID($id);
+    }
+
+    function deletePaperworkByUID($id)
+    {
+        $id = intval($id);
+        $uid = intval($_SESSION['user_id']);
+        //get the file url
+        $paperwork = Paperwork::getPaperworkByUID($id, $uid);
+        
+        //delete the file and data from database and server
+        if(file_exists($complaint['attached_file'])) {
+            
+            if(unlink($paperwork['attached_file'])) {
+                Paperwork::deleteByUID($id,$uid);
+            }else{
+                echo "delete process gone wrong!";
+            }
+        }else{
+            Paperwork::deleteByUID($id,$uid);
+        }
+    }
+
     if(isset($_POST['submit'])) {
         create_submission($_SESSION['user_id']);
+    }
+
+    if(isset($_POST['delete'])) {
+        
+        $id = $_POST['id'];
+        deletePaperworkByUID($id);
     }
 ?>

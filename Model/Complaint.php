@@ -36,23 +36,16 @@
             }
         }
 
-        public static function getComplaintByID($id, $uid=NULL)
+        public static function getComplaintByID($id)
         {
             //get a DB connection
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            if($uid == NULL || $uid = "") {
-                $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name
-                FROM complaint
-                JOIN user ON user.user_id = complaint.user_id
-                WHERE complaint.comp_id = $id";
-            }else{
-                $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name
-                FROM complaint
-                JOIN user ON user.user_id = complaint.user_id
-                WHERE complaint.comp_id = $id AND complaint.user_id = $uid";
-            }
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name
+            FROM complaint
+            JOIN user ON user.user_id = complaint.user_id
+            WHERE complaint.comp_id = $id";
             
             $result = $conn->query($sql);
 
@@ -71,22 +64,67 @@
             $conn->close();
         }
 
-        public static function getAllComplaint($uid=NULL)
+        public static function getComplaintByUID($id, $uid)
         {
             //get a DB connection
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            if($uid == NULL || $uid == "") {
-                $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
-                FROM complaint
-                JOIN user ON complaint.user_id = user.user_id";
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name
+            FROM complaint
+            JOIN user ON user.user_id = complaint.user_id
+            WHERE complaint.comp_id = $id AND complaint.user_id = $uid";
+
+            
+            $result = $conn->query($sql);
+
+            if($result == TRUE) {
+                if($result->num_rows > 0) {
+                    $complaint = $result->fetch_assoc();
+                    return $complaint;
+                }else {
+                    return NULL;
+                }
+
             }else {
-                $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
-                FROM complaint
-                JOIN user ON complaint.user_id = user.user_id
-                WHERE complaint.user_id = $uid";
+                echo  "Error: " . $sql;
             }
+
+            $conn->close();
+        }
+
+
+
+        public static function getAllComplaint()
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+           
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
+            FROM complaint
+            JOIN user ON complaint.user_id = user.user_id
+            ORDER BY complaint.created_at DESC";
+
+
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }
+        }
+
+        public static function getAllComplaintByUID($uid)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
+            FROM complaint
+            JOIN user ON complaint.user_id = user.user_id
+            WHERE complaint.user_id = $uid
+            ORDER BY complaint.created_at DESC";
 
             $results = $conn->query($sql);
             if($results == TRUE) {
@@ -108,6 +146,26 @@
 
             if($conn->query($sql) == TRUE) {
                 echo "Complaint updated successfully!";
+            }else {
+                echo  "Error: " . $sql;
+            }
+        }
+
+        public static function deleteByUID($id, $uid)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "DELETE FROM complaint WHERE comp_id = $id AND user_id = $uid";
+
+            if($result = $conn->query($sql) == TRUE) {
+
+                if($conn->affected_rows != 0) {
+                    echo "Complaint deleted successfully!";
+                }else{
+                    echo "Data not found!";
+                }
             }else {
                 echo  "Error: " . $sql;
             }

@@ -32,3 +32,11 @@
 .table-complaint-parent {
     height: 500px;
 }
+
+.date-show-flex {
+    display: flex;
+}
+
+.date-show-child {
+    flex:1;
+}

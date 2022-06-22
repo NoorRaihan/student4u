@@ -43,7 +43,7 @@
             //check if the file format is allow
             if(in_array($file_format, $file_ext)) {
     
-                $newDest = "../view/uploads/" . $newFileName;
+                $newDest = "../view/uploads/complaint/" . $newFileName;
     
                 if(move_uploaded_file($file_tmp, $newDest)) {
     
@@ -136,6 +136,12 @@
         return Complaint::getAllComplaint();
     }
 
+    function view_all_complaint_uid()
+    {
+        $uid = intval($_SESSION['user-id']);
+        return Complaint::getAllComplaintByUID($uid);
+    }
+
     function get_complaint_UID($id)
     {
         $id = intval($id);
@@ -149,6 +155,31 @@
         return Complaint::getComplaintByID($id);
     }
 
+    function deleteComplaintByUID($id)
+    {
+        $id = intval($id);
+        $uid = intval($_SESSION['user_id']);
+
+        //get the complaint data
+        $complaint = Complaint::getComplaintByUID($id,$uid);
+
+        //try to delete the file if have from the server
+        if(!empty($complaint['attached_file'])) {
+
+            if(file_exists($complaint['attached_file'])) {
+                if(unlink($complaint['attached_file'])) {
+                    Complaint::deleteByUID($id,$uid);
+                }else{
+                    echo "Deleting complaint went wrong!";
+                }
+            }else{
+                Complaint::deleteByUID($id,$uid);
+            }
+        }else{
+            Complaint::deleteByUID($id,$uid);
+        }
+    }
+
     if(isset($_POST['submit'])) {
         create_complaint($_SESSION['user_id']);
     }
@@ -158,6 +189,12 @@
         $id = $_POST['id'];
         $uid = $_SESSION['user_id'];
         edit_complaintByID($id,$uid);
+    }
+
+    if(isset($_POST['delete'])) {
+        
+        $id = $_POST['id'];
+        deleteComplaintByUID($id);
     }
 
 ?>

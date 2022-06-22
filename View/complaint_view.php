@@ -83,11 +83,12 @@
                 <table class="complaint-table table table-hover table-bordered table-head-fixed text-nowrap">
                   <thead>
                     <tr>
-                      <th>Complaint ID</th>
+                      <th> ID</th>
                       <th>Student ID</th>
                       <th>Student Name</th>
                       <th>Complaint Description</th>
                       <th>Attached File</th>
+                      <th>Submission Date</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -114,18 +115,17 @@
                                     ?>
                                     <td class="complaint-data"><?php echo $data['comp_desc'] ?></td>
                                     <td><?php echo !empty($data['attached_file']) ? "<a href='".$data['attached_file']."' class='btn btn-sm btn-secondary'><i class='fas fa-file'></i></a>" : "No File Attached"?></td>
+                                    <td class="complaint-data"><?php echo $data['created_at'] ?></td>
                                     <td><span class="badge bg-warning"><?php echo $data['comp_status'] ?></span></td>
                                     <td>
                                         <div class="action-form">
-                                            <form action="" class="action-form-child">
-                                              <button href="complaint_view.php" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <form action="complaint_show.php" class="action-form-child">
+                                              <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                             </form>
                                             <form action="complaint_edit.php" method="GET" class="action-form-child">
                                               <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" href="complaint_view.php" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
                                             </form>
-                                            <form action="">
-                                              <button href="complaint_view.php" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                            </form>
+                                            <button onclick="passID(<?php echo $data['comp_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -134,6 +134,29 @@
                     ?>
                   </tbody>
                 </table>
+              </div>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you confirm to delete this submission?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <form action="../controller/ComplaintController.php" method="POST">
+                        <input name="id" id="id" type="hidden">
+                        <button type="submit" name="delete" value="delete" class="btn btn-danger">Delete</button>
+                      </form>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -167,6 +190,11 @@
   $(function () {
     bsCustomFileInput.init();
   });
+
+  function passID(id) {
+    input = document.getElementById("id");
+    input.value = id;
+  }
 </script>
 </body>
 </html>
