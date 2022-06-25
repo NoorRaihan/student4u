@@ -110,7 +110,7 @@
                                         <form action="paperwork_show.php" method="GET" class="action-form-child">
                                               <button type="submit" name="id" value="<?php echo $data['sub_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                             </form>
-                                            <form action="complaint_edit.php" method="GET" class="action-form-child">
+                                            <form action="paperwork_edit.php" method="GET" class="action-form-child">
                                               <button type="submit" name="id" value="<?php echo $data['sub_id'] ?>" href="complaint_view.php" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
                                             </form>
                                               <button onclick="passID(<?php echo $data['sub_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash"></i></button>

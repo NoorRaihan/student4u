@@ -145,7 +145,11 @@
             WHERE comp_id = $this->comp_id AND user_id = $this->user_id";
 
             if($conn->query($sql) == TRUE) {
-                echo "Complaint updated successfully!";
+                if($conn->affected_rows != 0){
+                    echo "Complaint updated successfully!";
+                }else{
+                    echo "Data does not exist!";
+                }
             }else {
                 echo  "Error: " . $sql;
             }

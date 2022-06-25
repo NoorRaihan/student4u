@@ -135,6 +135,33 @@
 
         }
 
+
+        public function updateByUID()
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "UPDATE submission SET
+            program_name = '$this->program_name',
+            advisor = '$this->advisor',
+            sender_role = '$this->sender_role',
+            attached_file = '$this->attached_file',
+            updated_at = '$this->updated_at',
+            club_id = $this->club_id
+            WHERE sub_id = $this->id AND user_id = $this->user_id";
+
+            var_dump($sql);
+            if($conn->query($sql) == TRUE) {
+                if($conn->affected_rows != 0){
+                    echo "paperwork updated successfully!";
+                }else{
+                    echo "Data does not exist!";
+                }
+            }else {
+                echo  "Error: " . $sql;
+            }
+        }
         
     }
 

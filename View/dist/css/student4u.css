@@ -23,6 +23,7 @@
 
 .input-hide {
     visibility: hidden;
+    display: none;
 }
  
 .anon-checkbox {

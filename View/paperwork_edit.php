@@ -1,9 +1,9 @@
 <?php
   include '../controller/Authorize.php';
-  include '../controller/ComplaintController.php';
+  include '../controller/PaperworkController.php';
 
-  $id = $_GET['id'];
-  $data = get_complaint($id);
+  $id = intval($_GET['id']);
+  $data = getPaperworkByID($id);
 ?>
 
 <!DOCTYPE html>
@@ -46,12 +46,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Edit Complaint</h1>
+            <h1 class="m-0">Paperwork Submission</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Complaint</li>
+              <li class="breadcrumb-item active">Paperwork Submission</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -63,28 +63,46 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="card card-warning">
+        <div class="card card-danger">
               <div class="card-header">
-                <h3 class="card-title">Edit Complaint</h3>
+                <h3 class="card-title">Paperwork Submission</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="../controller/ComplaintController.php" method="post" enctype="multipart/form-data">
+              <form action="../controller/PaperworkController.php" method="post" enctype="multipart/form-data">
                 <div class="card-body">
-                  <input type="text" id="id" name="id" value="<?php echo $data['comp_id'] ?>" hidden>
-                  <div class="form-group">
-                      <label for=" exampleInputEmail1">Student ID: </label> <?php echo $data['matrix_no'] ?>
+                <input type="hidden" name="id" class="form-control" value="<?php echo $data['sub_id'] ?>">
+                <div class="form-group">
+                    <label for=" exampleInputEmail1">Your Role</label>
+                    <input type="text" name="event-role" class="form-control" placeholder="Secretary/Project Leader" value="<?php echo $data['sender_role'] ?>" required>
                   </div>
                   <div class="form-group">
-                    <label for=" exampleInputEmail1">Student Name: </label> <?php echo $data['user_name'] ?>
+                    <label for=" exampleInputEmail1">Program/Event Name</label>
+                    <input type="text" name="event-name" class="form-control" placeholder="Multimedia Competition 2022" value="<?php echo $data['program_name'] ?>" required>
                   </div>
                   <div class="form-group">
-                    <label for=" exampleInputEmail1">Complaint Description</label>
-                    <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_desc'] ?></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">Evidence File (if any)</label><br>
+                    <label for=" exampleInputEmail1">Club/Association</label>
+                    <select name="club" class="form-control" required>
+                      <?php
+                        $clubs = getAllClubs();
 
+                        while($data2 = $clubs->fetch_assoc()) {
+                          if($data2['club_id'] == $data['club_id']) {
+                            echo "<option value='".$data2['club_id']."' selected>".$data2['club_name']."</option>";
+                          }else{
+                            echo "<option value='".$data2['club_id']."'>".$data2['club_name']."</option>";
+                          }
+                          
+                        }
+                      ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Advisor Name</label>
+                    <input type="text" name="advisor-name" class="form-control" value="<?php echo $data['advisor'] ?>" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Paperwork Document</label>
                     <?php 
                       if($data['attached_file'] != NULL || $data['attached_file'] != "" ) {
 
@@ -115,18 +133,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-check anon-checkbox">
-                    <input type="checkbox" name="hide" class="form-check-input" value="1" id="exampleCheck1" <?php echo $data['hide'] == "1" ? "checked" : ""  ?>>
-                    <label class="form-check-label" for="exampleCheck1">Submit as Anonymous</label>
-                  </div>
                   <div class="form-group form-status">
-                    <label for=" exampleInputEmail1">Status: </label> <span class="badge bg-warning"><?php echo $data['comp_status'] ?></span></td>
+                    <label for=" exampleInputEmail1">Status: </label> <span class="badge bg-warning"><?php echo $data['sub_status'] ?></span></td>
                   </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" name="update" class="btn btn-primary">Update</button>
+                  <button type="submit" name="update" value="update" class="btn btn-primary">Update</button>
                 </div>
               </form>
             </div>
@@ -167,15 +181,6 @@
     $file_view.style.display = "none";
     $input_form.style.visibility = "visible";
     $file.value = "";
-
-  }
-
-  function addFile() {
-    $file_add = document.getElementById("add-file");
-    $input_form = document.getElementById("input-hide");
-    $file_add.style.visibility = "hidden";
-    $file_add.style.display = "none";
-    $input_form.style.visibility = "visible";
 
   }
 </script>
