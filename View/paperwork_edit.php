@@ -72,6 +72,19 @@
               <form action="../controller/PaperworkController.php" method="post" enctype="multipart/form-data">
                 <div class="card-body">
                 <input type="hidden" name="id" class="form-control" value="<?php echo $data['sub_id'] ?>">
+                <div class="form-group form-status" style="margin-top: 20px;">
+                    <label for=" exampleInputEmail1">Status: </label> <span class="badge <?php
+
+                      if($data['sub_status'] == "APPROVED") {
+                        echo 'bg-success';
+                      }else if($data['sub_status'] == "REJECTED") {
+                        echo 'bg-danger';
+                      }else{
+                        echo 'bg-warning';
+                      }
+
+                    ?>"><?php echo $data['sub_status'] ?></span></td>
+                </div>
                 <div class="form-group">
                     <label for=" exampleInputEmail1">Your Role</label>
                     <input type="text" name="event-role" class="form-control" placeholder="Secretary/Project Leader" value="<?php echo $data['sender_role'] ?>" required>
@@ -133,14 +146,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group form-status">
-                    <label for=" exampleInputEmail1">Status: </label> <span class="badge bg-warning"><?php echo $data['sub_status'] ?></span></td>
-                  </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" name="update" value="update" class="btn btn-primary">Update</button>
+                  <div class="response-btn">
+                    <button type="submit" name="update" value="update" class="btn btn-primary">Update</button>
+                  </div>
+                  <a href="paperwork_view.php" class="btn btn-secondary">Back</a>
                 </div>
               </form>
             </div>

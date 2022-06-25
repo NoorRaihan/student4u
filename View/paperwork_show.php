@@ -70,7 +70,20 @@
               <!-- /.card-header -->
               <!-- form start -->
               <form action="../controller/PaperworkController.php" method="post" enctype="multipart/form-data">
-                <div class="card-body">
+              <div class="card-body">
+                <div class="form-group form-status">
+                    <label for=" exampleInputEmail1">Status: </label> <span class="badge <?php
+
+                      if($data['sub_status'] == "APPROVED") {
+                        echo 'bg-success';
+                      }else if($data['sub_status'] == "REJECTED") {
+                        echo 'bg-danger';
+                      }else{
+                        echo 'bg-warning';
+                      }
+
+                    ?>"><?php echo $data['sub_status'] ?></span></td>
+                </div>
                 <div class="form-group">
                     <label for=" exampleInputEmail1">Student Position</label>
                     <p><?php echo $data['sender_role'] ?></p>
@@ -123,18 +136,51 @@
                         <?php
                       }
                       ?>
-                      
                       </div>
                     </div>
-                    <div class="form-group form-status" style="margin-top: 20px;">
-                    <label for=" exampleInputEmail1">Status: </label> <span class="badge bg-warning"><?php echo $data['sub_status'] ?></span></td>
-                </div>
+                  </div>
+                  <?php 
+                  
+                  if($data['sub_status'] == "APPROVED" || $data['sub_status'] == "REJECTED") {
+                        
+                    ?>
+                      <div class="form-group" style="margin-top: 20px;">
+                        <label for=" exampleInputEmail1">MPP Response</label>
+                        <textarea readonly class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['subs_response'] ?></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputFile">Returned Document</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                    <?php
+
+                    if($data['returned_file'] != NULL || $data['returned_file'] != "" ) {
+
+                      ?>
+                            <div id="view-file" class="view-file">
+                              <a href="<?php echo $data['returned_file'] ?>" class='btn btn-secondary btn-sm'><i class='fas fa-file'></i></a>
+                              <a><?php echo $data['returned_file'] ?></a>
+                            </div>
+                        <?php
+                      }else{
+                        ?>
+                        <div id="add-file" class="add-file">
+                          <p>No Return Document</p>
+                        </div>
+                          
+                        <?php
+                      }
+                  }
+                  
+                  ?>
+                  </div>
+                    <div class="card-footer">
+                      <a href="paperwork_view.php" class="btn btn-secondary">Back</a>
+                    </div>
+                  </div>
                   </div>
                 </div>
               </form>
-              <div class="card-footer">
-                  <a href="paperwork_view.php" class="btn btn-secondary">Back</a>
-              </div>
             </div>
             <!-- /.card -->
         <!-- /.row (main row) -->

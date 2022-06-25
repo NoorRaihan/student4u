@@ -1,9 +1,10 @@
 <?php
   include '../controller/Authorize.php';
-  include '../controller/ComplaintController.php';
+  include '../controller/PaperworkController.php';
 
-  $id = $_GET['id'];
-  $data = get_complaint($id);
+
+  $id = intval($_GET['id']);
+  $data = getPaperworkByID($id);
 ?>
 
 <!DOCTYPE html>
@@ -46,12 +47,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Complaint Details</h1>
+            <h1 class="m-0">Submission Detail</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Complaint</li>
+              <li class="breadcrumb-item active">Paperwork Submission</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -63,45 +64,66 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="card card-warning">
+        <div class="card card-danger">
               <div class="card-header">
-                <h3 class="card-title">Complaint Details</h3>
+                <h3 class="card-title">Submission Detail</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="../controller/ComplaintController.php" method="post" enctype="multipart/form-data">
+              <form action="../controller/PaperworkController.php" method="post" enctype="multipart/form-data">
                 <div class="card-body">
-                  <input type="text" id="id" name="id" value="<?php echo $data['comp_id'] ?>" hidden>
-                  <div class="form-group form-status">
+                <input type="hidden" name="id" value="<?php echo $id?>">
+                <div class="form-group form-status" style="margin-top: 20px;">
                     <label for=" exampleInputEmail1">Status: </label> <span class="badge <?php
 
-                      if($data['comp_status'] == "APPROVED") {
+                      if($data['sub_status'] == "APPROVED") {
                         echo 'bg-success';
-                      }else if($data['comp_status'] == "REJECTED") {
+                      }else if($data['sub_status'] == "REJECTED") {
                         echo 'bg-danger';
                       }else{
                         echo 'bg-warning';
                       }
 
-                    ?>"><?php echo $data['comp_status'] ?></span></td>
+                    ?>"><?php echo $data['sub_status'] ?></span></td>
+                </div>
+                <div class="form-group">
+                    <label for=" exampleInputEmail1">Student Position</label>
+                    <p><?php echo $data['sender_role'] ?></p>
                   </div>
                   <div class="form-group">
-                      <label for=" exampleInputEmail1">Student ID: </label> <?php echo $data['matrix_no'] ?>
+                    <label for=" exampleInputEmail1">Program/Event Name</label>
+                    <p><?php echo $data['program_name'] ?></p>
                   </div>
                   <div class="form-group">
-                    <label for=" exampleInputEmail1">Student Name: </label> <?php echo $data['user_name'] ?>
+                    <label for=" exampleInputEmail1">Club/Association</label>
+                    <p><?php echo $data['club_name'] ?></p>
                   </div>
                   <div class="form-group">
-                    <label for=" exampleInputEmail1">Complaint Description</label>
-                    <textarea readonly class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_desc'] ?></textarea>
+                    <label for=" exampleInputEmail1">Advisor Name</label>
+                    <p><?php echo $data['advisor'] ?></p>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputFile">Evidence File (if any)</label><br>
-
-                    <?php 
+                    <div class="date-show-flex">
+                      <div class="date-show-child">
+                        <label for=" exampleInputEmail1">Submission Date :</label>
+                        <?php echo $data['created_at'] ?>
+                      </div>
+                      <div class="date-show-child">
+                        <label for=" exampleInputEmail1">Edited :</label>
+                        <?php echo $data['updated_at'] ?>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Paperwork Document</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                      <?php 
                       if($data['attached_file'] != NULL || $data['attached_file'] != "" ) {
 
-                        ?>
+                      ?>
                         <div id="view-file" class="view-file">
                           <a href="<?php echo $data['attached_file'] ?>" class='btn btn-secondary btn-sm'><i class='fas fa-file'></i></a>
                             <a><?php echo $data['attached_file'] ?></a>
@@ -115,28 +137,36 @@
                           
                         <?php
                       }
-                       
-                      if($data['comp_status'] == "APPROVED" || $data['comp_status'] == "REJECTED") {
-                        
-                        ?>
-                          <div class="form-group" style="margin-top: 20px;">
-                            <label for=" exampleInputEmail1">MPP Response</label>
-                            <textarea readonly class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_response'] ?></textarea>
-                          </div>
-                        <?php
-                      }
-                  ?>
-                  </div>
-                  <div class="form-check anon-checkbox">
-                    <input disabled="disabled" type="checkbox" name="hide" class="form-check-input" value="1" id="exampleCheck1" <?php echo $data['hide'] == "1" ? "checked" : ""  ?>>
-                    <label class="form-check-label" for="exampleCheck1">Submit as Anonymous</label>
+                      ?>
+                      
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                      <label for=" exampleInputEmail1">MPP Comments/Response</label>
+                      <textarea class="form-control" name="response" id="exampleFormControlTextarea1" rows="3" placeholder="We will take action immediately"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputFile">Returned Document</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" name="file" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                      </div>
+                    </div>
+                    </div>
                   </div>
                 </div>
-                <!-- /.card-body -->
-              </form>
-              <div class="card-footer">
-                  <a href="complaint_view.php" class="btn btn-secondary">Back</a>
+                <div class="card-footer">
+                  <div class="response-btn">
+                    <button type="submit" name="approve" class="btn btn-success">Approve</button>
+                    <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                  </div>
+                  <a href="paperwork_view.php" class="btn btn-secondary">Back</a>
               </div>
+              </form>
             </div>
             <!-- /.card -->
         <!-- /.row (main row) -->
@@ -166,26 +196,6 @@
   $(function () {
     bsCustomFileInput.init();
   });
-
-  function removeFile() {
-    $file_view = document.getElementById("view-file");
-    $input_form = document.getElementById("input-hide");
-    $file = document.getElementById("curr-file");
-    $file_view.style.visibility = "hidden";
-    $file_view.style.display = "none";
-    $input_form.style.visibility = "visible";
-    $file.value = "";
-
-  }
-
-  function addFile() {
-    $file_add = document.getElementById("add-file");
-    $input_form = document.getElementById("input-hide");
-    $file_add.style.visibility = "hidden";
-    $file_add.style.display = "none";
-    $input_form.style.visibility = "visible";
-
-  }
 </script>
 </body>
 </html>

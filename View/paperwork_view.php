@@ -104,16 +104,48 @@
                                     <td class="complaint-data"><?php echo $data['program_name'] ?></td>
                                     <td><?php echo !empty($data['attached_file']) ? "<a href='".$data['attached_file']."' class='btn btn-sm btn-secondary'><i class='fas fa-file'></i></a>" : "No File Attached"?></td>
                                     <td class="complaint-data"><?php echo $data['created_at'] ?></td>
-                                    <td><span class="badge bg-warning"><?php echo $data['sub_status'] ?></span></td>
+                                    <td><span class="badge <?php
+
+                                        if($data['sub_status'] == "APPROVED") {
+                                          echo 'bg-success';
+                                        }else if($data['sub_status'] == "REJECTED") {
+                                          echo 'bg-danger';
+                                        }else{
+                                          echo 'bg-warning';
+                                        }
+
+                                      ?>"><?php echo $data['sub_status'] ?></span></td>
                                     <td>
                                         <div class="action-form">
-                                        <form action="paperwork_show.php" method="GET" class="action-form-child">
-                                              <button type="submit" name="id" value="<?php echo $data['sub_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            </form>
-                                            <form action="paperwork_edit.php" method="GET" class="action-form-child">
-                                              <button type="submit" name="id" value="<?php echo $data['sub_id'] ?>" href="complaint_view.php" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
-                                            </form>
+                                        <?php 
+                                            
+                                            if($data['sub_status'] != "APPROVED" && $data['sub_status'] != "REJECTED") {
+
+                                              ?>
+                                                <form action="paperwork_response.php" class="action-form-child">
+                                                  <button type="submit" name="id" value="<?php echo $data['sub_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-reply"></i></button>
+                                                </form>
+                                              <?php
+                                            }
+
+                                          ?>
+                                          <form action="paperwork_show.php" class="action-form-child">
+                                            <button type="submit" name="id" value="<?php echo $data['sub_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                          </form>
+
+                                          <?php 
+                                          
+                                          if($data['sub_status'] != "APPROVED" && $data['sub_status'] != "REJECTED") {
+
+                                            ?>
+                                              <form action="paperwork_edit.php" method="GET" class="action-form-child">
+                                                <button type="submit" name="id" value="<?php echo $data['sub_id'] ?>" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
+                                              </form>
                                               <button onclick="passID(<?php echo $data['sub_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                                            <?php
+                                            }
+
+                                          ?>
                                         </div>
                                     </td>
                                 </tr>

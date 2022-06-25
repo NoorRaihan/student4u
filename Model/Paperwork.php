@@ -162,6 +162,31 @@
                 echo  "Error: " . $sql;
             }
         }
+
+        public function responseByID()
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "UPDATE submission SET
+            subs_response = '$this->response',
+            returned_file = '$this->returned_file',
+            updated_at = '$this->updated_at',
+            sub_status = '$this->status'
+            WHERE sub_id = $this->id";
+
+            // var_dump($sql);
+            if($conn->query($sql) == TRUE) {
+                if($conn->affected_rows != 0){
+                    echo "paperwork updated successfully!";
+                }else{
+                    echo "Data does not exist!";
+                }
+            }else {
+                echo  "Error: " . $sql;
+            }
+        }
         
     }
 

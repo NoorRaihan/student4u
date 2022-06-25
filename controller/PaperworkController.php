@@ -163,6 +163,62 @@
         }
     }
 
+    function responseComplaint($id, $status)
+    {
+        //get a DB connection
+        $instance = Database::getInstance();
+        $conn = $instance->getDBConnection();
+
+        $id = intval($id);
+
+        $paperwork = new Paperwork();
+        $paperwork->id = $id;
+        $paperwork->updated_at = strftime('%Y-%m-%d %H:%M:%S');
+        $paperwork->status = $status;
+        $paperwork->response = $conn->real_escape_string($_POST['response']);
+        
+        if($_FILES['file']['tmp_name'] !== '') {
+            $file = $_FILES['file'];
+    
+            //file properties;
+            $file_ext = array("txt","jpg","zip","rar","gif","png","jpeg");
+            $filename = $file['name'];
+            $file_type = $file['type'];
+            $file_size = $file['size'];
+            $file_error = $file['error'];
+            $file_tmp = $file['tmp_name'];
+    
+            //check for file format
+            $fileExplode = explode(".", $filename);
+            $file_format = strtolower(end($fileExplode));
+    
+            //sanitize the filename
+            $newFileName = md5(time().$filename) . "." . $file_format;
+    
+            //check if the file format is allow
+            if(in_array($file_format, $file_ext)) {
+    
+                $newDest = "../view/uploads/return/" . $newFileName;
+    
+                if(move_uploaded_file($file_tmp, $newDest)) {
+    
+                    $paperwork->returned_file = $newDest;
+                    echo "upload successful!";
+                    $paperwork->responseByID();
+
+                } else {
+                    echo "upload failed!";
+                }
+
+            }else{
+                echo "filetype not allowed!";
+            }
+        }else{
+            $paperwork->returned_file = NULL;
+            $paperwork->responseByID();
+        }
+    }
+
     if(isset($_POST['submit'])) {
         create_submission($_SESSION['user_id']);
     }
@@ -180,8 +236,15 @@
         edit_paperworkById($id,$uid);
     }
 
-    if(isset($_POST['response']))
-    {
-        //code here
+    if(isset($_POST['approve']) || isset($_POST['reject'])) {
+
+        if(isset($_POST['approve'])) {
+            $status = "APPROVED";
+        }else{
+            $status = "REJECTED";
+        }
+        
+        $id = $_POST['id'];
+        responseComplaint($id, $status);
     }
 ?>

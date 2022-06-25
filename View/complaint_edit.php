@@ -72,6 +72,19 @@
               <form action="../controller/ComplaintController.php" method="post" enctype="multipart/form-data">
                 <div class="card-body">
                   <input type="text" id="id" name="id" value="<?php echo $data['comp_id'] ?>" hidden>
+                  <div class="form-group form-status">
+                    <label for=" exampleInputEmail1">Status: </label> <span class="badge <?php
+
+                      if($data['comp_status'] == "APPROVED") {
+                        echo 'bg-success';
+                      }else if($data['comp_status'] == "REJECTED") {
+                        echo 'bg-danger';
+                      }else{
+                        echo 'bg-warning';
+                      }
+
+                    ?>"><?php echo $data['comp_status'] ?></span></td>
+                  </div>
                   <div class="form-group">
                       <label for=" exampleInputEmail1">Student ID: </label> <?php echo $data['matrix_no'] ?>
                   </div>
@@ -118,19 +131,6 @@
                   <div class="form-check anon-checkbox">
                     <input type="checkbox" name="hide" class="form-check-input" value="1" id="exampleCheck1" <?php echo $data['hide'] == "1" ? "checked" : ""  ?>>
                     <label class="form-check-label" for="exampleCheck1">Submit as Anonymous</label>
-                  </div>
-                  <div class="form-group form-status">
-                    <label for=" exampleInputEmail1">Status: </label> <span class="badge <?php 
-                    
-                      if($data['comp_status'] == "APPROVED") {
-                        echo 'bg-success';
-                      }else if($data['comp_status'] == "REJECTED") {
-                        echo 'bg-danger';
-                      }else{
-                        echo 'bg-warning';
-                      }
-
-                    ?>"><?php echo $data['comp_status'] ?></span></td>
                   </div>
                 </div>
                 <!-- /.card-body -->
