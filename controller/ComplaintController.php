@@ -179,6 +179,23 @@
         }
     }
 
+    function responseComplaint($id, $status)
+    {
+        //get a DB connection
+        $instance = Database::getInstance();
+        $conn = $instance->getDBConnection();
+
+        $id = intval($id);
+
+        $complaint = new Complaint();
+        $complaint->comp_id = $id;
+        $complaint->updated_at = strftime('%Y-%m-%d %H:%M:%S');
+        $complaint->comp_status = $status;
+        $complaint->comp_response = $conn->real_escape_string($_POST['response']);
+
+        $complaint->responseByID();
+    }
+
     if(isset($_POST['submit'])) {
         create_complaint($_SESSION['user_id']);
     }
@@ -194,6 +211,18 @@
         
         $id = $_POST['id'];
         deleteComplaintByUID($id);
+    }
+
+    if(isset($_POST['approve']) || isset($_POST['reject'])) {
+
+        if(isset($_POST['approve'])) {
+            $status = "APPROVED";
+        }else{
+            $status = "REJECTED";
+        }
+
+        $id = $_POST['id'];
+        responseComplaint($id, $status);
     }
 
 ?>

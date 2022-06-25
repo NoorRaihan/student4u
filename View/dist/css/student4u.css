@@ -41,3 +41,7 @@
 .date-show-child {
     flex:1;
 }
+
+.response-btn {
+    float: right;
+}

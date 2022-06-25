@@ -46,7 +46,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Edit Complaint</h1>
+            <h1 class="m-0">Complaint Response</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -65,13 +65,23 @@
         <!-- Small boxes (Stat box) -->
         <div class="card card-warning">
               <div class="card-header">
-                <h3 class="card-title">Edit Complaint</h3>
+                <h3 class="card-title">Complaint Response</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form action="../controller/ComplaintController.php" method="post" enctype="multipart/form-data">
                 <div class="card-body">
+                  <div class="form-group form-status">
+                    <label for=" exampleInputEmail1">Status: </label> <span class="badge bg-warning"><?php echo $data['comp_status'] ?></span></td>
+                  </div>
                   <input type="text" id="id" name="id" value="<?php echo $data['comp_id'] ?>" hidden>
+                  <?php 
+
+                    if($data['hide'] == 1) {
+                      $data['matrix_no'] = "N/A";
+                      $data['user_name'] = "N/A";
+                    }
+                  ?>
                   <div class="form-group">
                       <label for=" exampleInputEmail1">Student ID: </label> <?php echo $data['matrix_no'] ?>
                   </div>
@@ -80,7 +90,7 @@
                   </div>
                   <div class="form-group">
                     <label for=" exampleInputEmail1">Complaint Description</label>
-                    <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_desc'] ?></textarea>
+                    <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_desc'] ?></textarea>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Evidence File (if any)</label><br>
@@ -90,54 +100,33 @@
 
                         ?>
                         <div id="view-file" class="view-file">
-                          <a class='btn btn-secondary btn-sm'><i class='fas fa-file'></i></a>
+                          <a href="<?php echo $data['attached_file'] ?>" class='btn btn-secondary btn-sm'><i class='fas fa-file'></i></a>
                             <a><?php echo $data['attached_file'] ?></a>
-                            <a onclick="removeFile()"><i class='fas remove-file fa-times'></i></a>
-                            <input type="text" id="curr-file" name="curr-file" value="<?php echo $data['attached_file'] ?>" hidden>
                           </div>
                         <?php
                       }else{
                         ?>
                         <div id="add-file" class="add-file">
-                          <p>No File Attached</p><a onclick="addFile()" class="btn btn-sm btn-secondary">Add File</a>
+                          <p>No File Attached</p>
                         </div>
                           
                         <?php
                       }
                     ?>
-                    <div id="input-hide" class="input-group input-hide">
-                      <div class="custom-file">
-                        <input type="file" name="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                      </div>
-                    </div>
                   </div>
-                  <div class="form-check anon-checkbox">
-                    <input type="checkbox" name="hide" class="form-check-input" value="1" id="exampleCheck1" <?php echo $data['hide'] == "1" ? "checked" : ""  ?>>
-                    <label class="form-check-label" for="exampleCheck1">Submit as Anonymous</label>
-                  </div>
-                  <div class="form-group form-status">
-                    <label for=" exampleInputEmail1">Status: </label> <span class="badge <?php 
-                    
-                      if($data['comp_status'] == "APPROVED") {
-                        echo 'bg-success';
-                      }else if($data['comp_status'] == "REJECTED") {
-                        echo 'bg-danger';
-                      }else{
-                        echo 'bg-warning';
-                      }
-
-                    ?>"><?php echo $data['comp_status'] ?></span></td>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">MPP Comments/Response</label>
+                    <textarea class="form-control" name="response" id="exampleFormControlTextarea1" rows="3" placeholder="We will take action immediately"></textarea>
                   </div>
                 </div>
                 <!-- /.card-body -->
-
                 <div class="card-footer">
-                  <button type="submit" name="update" class="btn btn-primary">Update</button>
-                </div>
+                  <div class="response-btn">
+                    <button type="submit" name="approve" class="btn btn-success">Approve</button>
+                    <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                  </div>
+                  <a href="complaint_view.php" class="btn btn-secondary">Back</a>
+              </div>
               </form>
             </div>
             <!-- /.card -->

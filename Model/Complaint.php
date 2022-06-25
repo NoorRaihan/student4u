@@ -7,6 +7,7 @@
         public $comp_id = NULL;
         public $comp_desc;
         public $attached_file;
+        public $comp_response;
         public $created_at;
         public $updated_at;
         public $comp_status;
@@ -169,6 +170,29 @@
                     echo "Complaint deleted successfully!";
                 }else{
                     echo "Data not found!";
+                }
+            }else {
+                echo  "Error: " . $sql;
+            }
+        }
+
+        public function responseByID()
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "UPDATE complaint SET
+            comp_response = '$this->comp_response',
+            updated_at = '$this->updated_at',
+            comp_status = '$this->comp_status'
+            WHERE comp_id = $this->comp_id";
+
+            if($conn->query($sql) == TRUE) {
+                if($conn->affected_rows != 0){
+                    echo "Complaint responded successfully!";
+                }else{
+                    echo "Data does not exist!";
                 }
             }else {
                 echo  "Error: " . $sql;

@@ -179,4 +179,9 @@
         $uid = $_SESSION['user_id'];
         edit_paperworkById($id,$uid);
     }
+
+    if(isset($_POST['response']))
+    {
+        //code here
+    }
 ?>

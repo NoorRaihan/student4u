@@ -116,16 +116,48 @@
                                     <td class="complaint-data"><?php echo $data['comp_desc'] ?></td>
                                     <td><?php echo !empty($data['attached_file']) ? "<a href='".$data['attached_file']."' class='btn btn-sm btn-secondary'><i class='fas fa-file'></i></a>" : "No File Attached"?></td>
                                     <td class="complaint-data"><?php echo $data['created_at'] ?></td>
-                                    <td><span class="badge bg-warning"><?php echo $data['comp_status'] ?></span></td>
+                                    <td><span class="badge <?php 
+                                    
+                                      if($data['comp_status'] == "APPROVED") {
+                                        echo 'bg-success';
+                                      }else if($data['comp_status'] == "REJECTED") {
+                                        echo 'bg-danger';
+                                      }else{
+                                        echo 'bg-warning';
+                                      }
+
+                                    ?>"><?php echo $data['comp_status'] ?></span></td>
                                     <td>
                                         <div class="action-form">
+                                            <?php 
+                                            
+                                              if($data['comp_status'] != "APPROVED" && $data['comp_status'] != "REJECTED") {
+
+                                                ?>
+                                                  <form action="complaint_response.php" class="action-form-child">
+                                                    <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-reply"></i></button>
+                                                  </form>
+                                                <?php
+                                              }
+
+                                            ?>
                                             <form action="complaint_show.php" class="action-form-child">
                                               <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                             </form>
-                                            <form action="complaint_edit.php" method="GET" class="action-form-child">
-                                              <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" href="complaint_view.php" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
-                                            </form>
-                                            <button onclick="passID(<?php echo $data['comp_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+
+                                            <?php 
+                                            
+                                            if($data['comp_status'] != "APPROVED" && $data['comp_status'] != "REJECTED") {
+
+                                              ?>
+                                                <form action="complaint_edit.php" method="GET" class="action-form-child">
+                                                  <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" href="complaint_view.php" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
+                                                </form>
+                                                <button onclick="passID(<?php echo $data['comp_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                                              <?php
+                                              }
+
+                                            ?>
                                         </div>
                                     </td>
                                 </tr>

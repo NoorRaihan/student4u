@@ -102,23 +102,34 @@
                           
                         <?php
                       }
-                    ?>
-                    <div id="input-hide" class="input-group input-hide">
-                      <div class="custom-file">
-                        <input type="file" name="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                      </div>
-                    </div>
+                       
+                      if($data['comp_status'] == "APPROVED" || $data['comp_status'] == "REJECTED") {
+                        
+                        ?>
+                          <div class="form-group" style="margin-top: 20px;">
+                            <label for=" exampleInputEmail1">MPP Response</label>
+                            <textarea readonly class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_response'] ?></textarea>
+                          </div>
+                        <?php
+                      }
+                  ?>
                   </div>
                   <div class="form-check anon-checkbox">
                     <input disabled="disabled" type="checkbox" name="hide" class="form-check-input" value="1" id="exampleCheck1" <?php echo $data['hide'] == "1" ? "checked" : ""  ?>>
                     <label class="form-check-label" for="exampleCheck1">Submit as Anonymous</label>
                   </div>
                   <div class="form-group form-status">
-                    <label for=" exampleInputEmail1">Status: </label> <span class="badge bg-warning"><?php echo $data['comp_status'] ?></span></td>
+                    <label for=" exampleInputEmail1">Status: </label> <span class="badge <?php
+
+                      if($data['comp_status'] == "APPROVED") {
+                        echo 'bg-success';
+                      }else if($data['comp_status'] == "REJECTED") {
+                        echo 'bg-danger';
+                      }else{
+                        echo 'bg-warning';
+                      }
+
+                    ?>"><?php echo $data['comp_status'] ?></span></td>
                 </div>
                 </div>
                 <!-- /.card-body -->
