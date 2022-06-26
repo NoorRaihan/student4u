@@ -155,7 +155,7 @@
                                                 <form action="complaint_edit.php" method="GET" class="action-form-child">
                                                   <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" href="complaint_view.php" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
                                                 </form>
-                                                <button onclick="passID(<?php echo $data['comp_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                                                <button onclick="passID(<?php echo $data['comp_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash"></i></button>
                                               <?php
                                               }
 
@@ -170,7 +170,7 @@
                 </table>
               </div>
               <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -188,6 +188,26 @@
                         <button type="submit" name="delete" value="delete" class="btn btn-danger">Delete</button>
                       </form>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade show" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Message</h5>
+                      <button type="button" class="close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p><?php echo $_SESSION['message'] ?></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
@@ -221,6 +241,25 @@
 <?php include '../view/includes/js.php' ?>
 
 <script>
+
+  modal = document.getElementById("modalInfo");
+    
+  <?php
+  if(isset($_SESSION['modal'])) {
+    ?>
+    modal.style.display = "block";
+    <?php
+    unset($_SESSION['modal']);
+    unset($_SESSION['message']);
+  }
+  ?>
+
+  function closeModal()
+  {
+    modal = document.getElementById("modalInfo");
+    modal.style.display = "none";
+  }
+
   $(function () {
     bsCustomFileInput.init();
   });
@@ -229,6 +268,7 @@
     input = document.getElementById("id");
     input.value = id;
   }
+
 </script>
 </body>
 </html>

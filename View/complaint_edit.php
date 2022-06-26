@@ -145,6 +145,25 @@
               </form>
             </div>
             <!-- /.card -->
+            <!-- Modal -->
+            <div class="modal fade show" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Message</h5>
+                      <button type="button" class="close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p><?php echo $_SESSION['message'] ?></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
@@ -169,6 +188,25 @@
 <?php include '../view/includes/js.php' ?>
 
 <script>
+
+  modal = document.getElementById("modalInfo");
+    
+  <?php
+  if(isset($_SESSION['modal'])) {
+    ?>
+    modal.style.display = "block";
+    <?php
+    unset($_SESSION['modal']);
+    unset($_SESSION['message']);
+  }
+  ?>
+
+  function closeModal()
+  {
+    modal = document.getElementById("modalInfo");
+    modal.style.display = "none";
+  }
+
   $(function () {
     bsCustomFileInput.init();
   });
