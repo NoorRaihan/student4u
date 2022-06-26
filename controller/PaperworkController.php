@@ -4,6 +4,7 @@
     include_once '../model/database.php';
     include '../model/Paperwork.php';
     include '../model/Club.php';
+    include_once '../controller/RoleValidation.php';
 
 
     function create_submission($uid)
@@ -138,14 +139,29 @@
         return Paperwork::getAllPaperworks();
     }
 
+    function getAllPaperworksByUID()
+    { 
+        return Paperwork::getAllPaperworksByUID($_SESSION['user_id']);
+    }
+
     function getAllPaperworksByMode($status) 
     {
         return Paperwork::getAllPaperworksByMode($status);
     }
 
+    function getAllPaperworksByModeUID($status) 
+    {
+        return Paperwork::getAllPaperworksByModeUID($status,$_SESSION['user_id']);
+    }
+
     function getAllPaperworksHistory()
     {
         return Paperwork::getAllPaperworksHistory();
+    }
+
+    function getAllPaperworksHistoryUID()
+    {
+        return Paperwork::getAllPaperworksHistoryUID($_SESSION['user_id']);
     }
 
     function getPaperworkByID($id)
@@ -262,23 +278,58 @@
 
         $mode = intval($_GET['mode']);
 
-        if($mode == 1) {
-            $paperwork = getAllPaperworks();
-            $title = "All Submissions";
-        }else if($mode == 2) {
-            $paperwork = getAllPaperworksByMode('IN PROGRESS');
-            $title = "Pending Submissions";
-        }else if($mode == 3) {
-            $paperwork = getAllPaperworksHistory();
-            $title = "Submission History";
-        }else if($mode == 4) {
-            $paperwork = getAllPaperworksByMode('APPROVED');
-            $title = "Approved Submissions";
-        }else if($mode == 5) {
-            $paperwork = getAllPaperworksByMode('REJECTED');
-            $title = "Rejected Submissions";
-        }else{
-            header('Location: 403.php');
+        if($role == 1) {
+            switch ($mode) {
+                case 1:
+                    $paperwork = getAllPaperworksByUID();
+                    $title = "All Submissions";
+                    break;
+                case 2:
+                    $paperwork = getAllPaperworksByModeUID('IN PROGRESS');
+                    $title = "Pending Submissions";
+                    break;
+                case 3:
+                    $paperwork = getAllPaperworksHistoryUID();
+                    $title = "Submission History";
+                    break;
+                case 4:
+                    $paperwork = getAllPaperworksByModeUID('APPROVED');
+                    $title = "Approved Submissions";
+                    break;
+                case 5:
+                    $paperwork = getAllPaperworksByModeUID('REJECTED');
+                    $title = "Rejected Submissions";
+                    break;
+                default:
+                    header('Location: 403.php');
+    
+            }
+        }else if($role == 2) {
+            switch ($mode) {
+                case 1:
+                    $paperwork = getAllPaperworks();
+                    $title = "All Submissions";
+                    break;
+                case 2:
+                    $paperwork = getAllPaperworksByMode('IN PROGRESS');
+                    $title = "Pending Submissions";
+                    break;
+                case 3:
+                    $paperwork = getAllPaperworksHistory();
+                    $title = "Submission History";
+                    break;
+                case 4:
+                    $paperwork = getAllPaperworksByMode('APPROVED');
+                    $title = "Approved Submissions";
+                    break;
+                case 5:
+                    $paperwork = getAllPaperworksByMode('REJECTED');
+                    $title = "Rejected Submissions";
+                    break;
+                default:
+                    header('Location: 403.php');
+    
+            }
         }
     }
 ?>

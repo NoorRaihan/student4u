@@ -1,6 +1,7 @@
 <?php
-  include '../controller/Authorize.php';
-  include '../controller/ComplaintController.php';
+  include_once '../controller/Authorize.php';
+  include_once '../controller/ComplaintController.php';
+  include_once '../controller/RoleValidation.php';
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +82,13 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0 table-complaint-parent">
                 <div class="add-complaint">
-                  <a href="complaint_create.php" class="btn btn-sm btn-success"><i class="fas fa-plus-square"></i> Create Complaint</a>
+                  <?php
+
+                    if($role == 1) {
+                      echo "<a href='complaint_create.php' class='btn btn-sm btn-success'><i class='fas fa-plus-square'></i> Create Complaint</a>";
+                    }
+
+                  ?>
                 </div>
                 <table class="complaint-table table table-hover table-bordered table-head-fixed text-nowrap">
                   <thead>
@@ -105,7 +112,7 @@
                                     <td><?php echo $data['comp_id'] ?></td>
                                     <?php
 
-                                        if($data['hide'] == 0)
+                                        if($data['hide'] == 0 || $role == 1)
                                         {
                                             echo "<td>".$data['matrix_no']."</td>";
                                             echo "<td>".$data['user_name']."</td>";
@@ -149,7 +156,7 @@
 
                                             <?php 
                                             
-                                            if($data['comp_status'] != "APPROVED" && $data['comp_status'] != "REJECTED") {
+                                            if($data['comp_status'] != "APPROVED" && $data['comp_status'] != "REJECTED" && $role == 1) {
 
                                               ?>
                                                 <form action="complaint_edit.php" method="GET" class="action-form-child">

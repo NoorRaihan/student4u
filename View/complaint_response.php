@@ -1,6 +1,11 @@
 <?php
   include '../controller/Authorize.php';
   include '../controller/ComplaintController.php';
+  include_once '../controller/RoleValidation.php';
+
+  if($role != 2) {
+    header('Location: 403.php');
+  }
 
   $id = $_GET['id'];
   $data = get_complaint($id);

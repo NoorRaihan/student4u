@@ -2,7 +2,8 @@
 
     session_status() === PHP_SESSION_ACTIVE ?: session_start();
     include_once '../model/database.php';
-    include '../model/Complaint.php';
+    include_once '../model/Complaint.php';
+    include_once '../controller/RoleValidation.php';
     
     function create_complaint($uid) 
     {
@@ -140,14 +141,24 @@
         return Complaint::getAllComplaintByMode($status);
     }
 
+    function view_mode_complaint_uid($status)
+    {
+        return Complaint::getAllComplaintByModeUID($status, $_SESSION['user_id']);
+    }
+
     function view_history_complaint()
     {
         return Complaint::getAllComplaintHistory();
     }
 
+    function view_history_complaint_uid()
+    {
+        return Complaint::getAllComplaintHistoryByUID($_SESSION['user_id']);
+    }
+
     function view_all_complaint_uid()
     {
-        $uid = intval($_SESSION['user-id']);
+        $uid = intval($_SESSION['user_id']);
         return Complaint::getAllComplaintByUID($uid);
     }
 
@@ -238,23 +249,56 @@
     if(isset($_GET['mode'])){
         $mode = intval($_GET['mode']);
 
-        if($mode == 1) {
-            $complaints = view_all_complaint();
-            $title = "All Complaints";
-        }else if($mode == 2) {
-            $complaints = view_mode_complaint('IN PROGRESS');
-            $title = "Pending Complaints";
-        }else if($mode == 3) {
-            $complaints = view_history_complaint();
-            $title = "Complaint History";
-        }else if($mode == 4) {
-            $complaints = view_mode_complaint('APPROVED');
-            $title = "Approved Complaints";
-        }else if($mode == 5) {
-            $complaints = view_mode_complaint('REJECTED');
-            $title = "Rejected Complaints";
-        }else{
-            header('Location: 403.php');
+        if($role == 1) {
+            switch ($mode) {
+                case 1:
+                    $complaints = view_all_complaint_uid();
+                    $title = "All Complaints";
+                    break;
+                case 2:
+                    $complaints = view_mode_complaint_uid('IN PROGRESS');
+                    $title = "Pending Complaints";
+                    break;
+                case 3:
+                    $complaints = view_history_complaint_uid();
+                    $title = "Complaint History";
+                    break;
+                case 4:
+                    $complaints = view_mode_complaint_uid('APPROVED');
+                    $title = "Approved Complaints";
+                    break;
+                case 5:
+                    $complaints = view_mode_complaint_uid('REJECTED');
+                    $title = "Rejected Complaints";
+                    break;
+                default:
+                    header('Location: 403.php');
+            }
+        }else if($role == 2) {
+            switch ($mode) {
+                case 1:
+                    $complaints = view_all_complaint();
+                    $title = "All Complaints";
+                    break;
+                case 2:
+                    $complaints = view_mode_complaint('IN PROGRESS');
+                    $title = "Pending Complaints";
+                    break;
+                case 3:
+                    $complaints = view_history_complaint();
+                    $title = "Complaint History";
+                    break;
+                case 4:
+                    $complaints = view_mode_complaint('APPROVED');
+                    $title = "Approved Complaints";
+                    break;
+                case 5:
+                    $complaints = view_mode_complaint('REJECTED');
+                    $title = "Rejected Complaints";
+                    break;
+                default:
+                    header('Location: 403.php');
+            }
         }
     }
 

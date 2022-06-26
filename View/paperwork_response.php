@@ -1,6 +1,11 @@
 <?php
   include '../controller/Authorize.php';
   include '../controller/PaperworkController.php';
+  include_once '../controller/RoleValidation.php';
+
+  if($role != 2) {
+    header('Location: 403.php');
+  }
 
 
   $id = intval($_GET['id']);

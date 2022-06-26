@@ -1,5 +1,5 @@
 <?php
-  include '../controller/DashboardController.php';
+  include_once '../controller/DashboardController.php';
 ?>
 <div class="wrapper">
 

@@ -145,6 +145,27 @@
             }
         }
 
+        public static function getAllComplaintByModeUID($status, $uid)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+           
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
+            FROM complaint
+            JOIN user ON complaint.user_id = user.user_id
+            WHERE complaint.comp_status = '$status'
+            AND complaint.user_id = $uid
+            ORDER BY complaint.created_at DESC";
+
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }else{
+                echo "<script>alert('Extracting complaint went wrong!'); window.location.href = '../view/complaint_view.php?mode=1'</script>";
+            }
+        }
+
         public static function getAllComplaintHistory()
         {
             //get a DB connection
@@ -155,6 +176,27 @@
             FROM complaint
             JOIN user ON complaint.user_id = user.user_id
             WHERE complaint.comp_status <> 'IN PROGRESS'
+            ORDER BY complaint.created_at DESC";
+            
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }else{
+                echo "<script>alert('Extracting complaint went wrong!'); window.location.href = '../view/complaint_view.php?mode=1'</script>";
+            }
+        }
+
+        public static function getAllComplaintHistoryByUID($uid)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+           
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
+            FROM complaint
+            JOIN user ON complaint.user_id = user.user_id
+            WHERE complaint.comp_status <> 'IN PROGRESS' 
+            AND complaint.user_id = $uid
             ORDER BY complaint.created_at DESC";
             
             $results = $conn->query($sql);
@@ -259,7 +301,7 @@
                 if($conn->affected_rows != 0){
                     $_SESSION['message'] = "Response submitted successfully!";
                     $_SESSION['modal'] = 1;
-                    echo "<script>window.location.href = history.back();</script>";
+                    echo "<script>window.location.href = '../view/complaint_view.php?mode=1';</script>";
                     echo "Complaint responded successfully!";
                 }else{
                     echo "<script>alert('Unauthorized data!'); window.location.href = history.back();</script>";

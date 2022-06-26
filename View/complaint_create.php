@@ -1,5 +1,10 @@
 <?php
   include '../controller/Authorize.php';
+  include_once '../controller/RoleValidation.php';
+
+  if($role != 1) {
+    header('Location: 403.php');
+  }
 ?>
 
 <!DOCTYPE html>

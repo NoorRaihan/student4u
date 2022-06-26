@@ -62,6 +62,26 @@
             }
         }
 
+        public static function getAllPaperworksByUID($uid)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name 
+            FROM submission
+            JOIN user ON submission.user_id = user.user_id
+            JOIN club ON submission.club_id = club.club_id
+            WHERE submission.user_id = $uid
+            ORDER BY submission.created_at DESC";
+
+            //var_dump($sql);
+            $result = $conn->query($sql);
+            if($result == TRUE) {
+                return $result;
+            }
+        }
+
         public static function getAllPaperworksByMode($status)
         {
             //get a DB connection
@@ -82,6 +102,27 @@
             }
         }
 
+        public static function getAllPaperworksByModeUID($status,$uid)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name 
+            FROM submission
+            JOIN user ON submission.user_id = user.user_id
+            JOIN club ON submission.club_id = club.club_id
+            WHERE submission.sub_status = '$status'
+            AND submission.user_id = $uid
+            ORDER BY submission.created_at DESC";
+
+            //var_dump($sql);
+            $result = $conn->query($sql);
+            if($result == TRUE) {
+                return $result;
+            }
+        }
+
         public static function getAllPaperworksHistory()
         {
             //get a DB connection
@@ -93,6 +134,27 @@
             JOIN user ON submission.user_id = user.user_id
             JOIN club ON submission.club_id = club.club_id
             WHERE submission.sub_status <> 'IN PROGRESS'
+            ORDER BY submission.created_at DESC";
+
+            //var_dump($sql);
+            $result = $conn->query($sql);
+            if($result == TRUE) {
+                return $result;
+            }
+        }
+
+        public static function getAllPaperworksHistoryUID($uid)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name 
+            FROM submission
+            JOIN user ON submission.user_id = user.user_id
+            JOIN club ON submission.club_id = club.club_id
+            WHERE submission.sub_status <> 'IN PROGRESS'
+            AND submission.user_id = $uid
             ORDER BY submission.created_at DESC";
 
             //var_dump($sql);

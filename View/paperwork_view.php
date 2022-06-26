@@ -1,6 +1,7 @@
 <?php
   include '../controller/Authorize.php';
   include '../controller/PaperworkController.php';
+  include_once '../controller/RoleValidation.php';
 ?>
 
 <!DOCTYPE html>
@@ -81,12 +82,18 @@
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0 table-complaint-parent">
                 <div class="add-paperwork">
-                  <a href="paperwork_create.php" class="btn btn-sm btn-success"><i class="fas fa-plus-square"></i> Create Paperwork</a>
+                  <?php
+                    if($role == 1) {
+                      echo "<a href='paperwork_create.php' class='btn btn-sm btn-success'><i class='fas fa-plus-square'></i> Create Paperwork</a>";
+                    }
+                  ?>
                 </div>
                 <table class="complaint-table table table-hover table-bordered table-head-fixed text-nowrap">
                   <thead>
                     <tr>
                       <th>ID</th>
+                      <th>Matric No</th>
+                      <th>Student Name</th>
                       <th>Club/Association</th>
                       <th>Program Name</th>
                       <th>Attached File</th>
@@ -102,8 +109,10 @@
                             ?>
                                 <tr>
                                     <td><?php echo $data['sub_id'] ?></td>
-                                    <td class="complaint-data"><?php echo $data['club_name'] ?></td>
-                                    <td class="complaint-data"><?php echo $data['program_name'] ?></td>
+                                    <td><?php echo $data['matrix_no'] ?></td>
+                                    <td><?php echo $data['user_name'] ?></td>
+                                    <td><?php echo $data['club_name'] ?></td>
+                                    <td><?php echo $data['program_name'] ?></td>
                                     <td><?php echo !empty($data['attached_file']) ? "<a href='".$data['attached_file']."' class='btn btn-sm btn-secondary'><i class='fas fa-file'></i></a>" : "No File Attached"?></td>
                                     <td class="complaint-data"><?php echo $data['created_at'] ?></td>
                                     <td><span class="badge <?php
@@ -137,7 +146,7 @@
 
                                           <?php 
                                           
-                                          if($data['sub_status'] != "APPROVED" && $data['sub_status'] != "REJECTED") {
+                                          if($data['sub_status'] != "APPROVED" && $data['sub_status'] != "REJECTED" && $role == 1) {
 
                                             ?>
                                               <form action="paperwork_edit.php" method="GET" class="action-form-child">
