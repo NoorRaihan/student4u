@@ -1,0 +1,4 @@
+V380 SECURITY CAMERA
+
+ID: admin
+PASS: user221199
