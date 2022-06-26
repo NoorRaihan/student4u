@@ -167,16 +167,18 @@
                         <div id="add-file" class="add-file">
                           <p>No Return Document</p>
                         </div>
-                          
                         <?php
                       }
                   }
                   
                   ?>
                   </div>
-                    <div class="card-footer">
-                      <a href="paperwork_view.php" class="btn btn-secondary">Back</a>
-                    </div>
+                  <div class="card-footer">
+                      <a onclick="javascript:history.go(-1)" class="btn btn-secondary">Back</a>
+                  </div>
+                </div>
+                </div>
+                  </div>
                   </div>
                   </div>
                 </div>

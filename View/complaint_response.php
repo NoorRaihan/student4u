@@ -125,7 +125,7 @@
                     <button type="submit" name="approve" class="btn btn-success">Approve</button>
                     <button type="submit" name="reject" class="btn btn-danger">Reject</button>
                   </div>
-                  <a href="complaint_view.php" class="btn btn-secondary">Back</a>
+                  <a onclick="javascript:history.go(-1)" class="btn btn-secondary">Back</a>
               </div>
               </form>
             </div>

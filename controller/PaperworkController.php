@@ -138,6 +138,16 @@
         return Paperwork::getAllPaperworks();
     }
 
+    function getAllPaperworksByMode($status) 
+    {
+        return Paperwork::getAllPaperworksByMode($status);
+    }
+
+    function getAllPaperworksHistory()
+    {
+        return Paperwork::getAllPaperworksHistory();
+    }
+
     function getPaperworkByID($id)
     {
         return Paperwork::getPaperworkByID($id);
@@ -246,5 +256,29 @@
         
         $id = $_POST['id'];
         responseComplaint($id, $status);
+    }
+
+    if(isset($_GET['mode'])) {
+
+        $mode = intval($_GET['mode']);
+
+        if($mode == 1) {
+            $paperwork = getAllPaperworks();
+            $title = "All Submissions";
+        }else if($mode == 2) {
+            $paperwork = getAllPaperworksByMode('IN PROGRESS');
+            $title = "Pending Submissions";
+        }else if($mode == 3) {
+            $paperwork = getAllPaperworksHistory();
+            $title = "Submission History";
+        }else if($mode == 4) {
+            $paperwork = getAllPaperworksByMode('APPROVED');
+            $title = "Approved Submissions";
+        }else if($mode == 5) {
+            $paperwork = getAllPaperworksByMode('REJECTED');
+            $title = "Rejected Submissions";
+        }else{
+            header('Location: 403.php');
+        }
     }
 ?>

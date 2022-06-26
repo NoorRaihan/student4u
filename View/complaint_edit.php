@@ -136,7 +136,11 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" name="update" class="btn btn-primary">Update</button>
+                  
+                  <div class="response-btn">
+                    <button type="submit" name="update" class="btn btn-primary">Update</button>
+                  </div>
+                  <a onclick="javascript:history.go(-1)" class="btn btn-secondary">Back</a>
                 </div>
               </form>
             </div>

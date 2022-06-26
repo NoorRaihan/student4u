@@ -29,7 +29,7 @@
 
     $assign = new Assign();
     $assign->user_id = $curr_user['user_id'];
-    $assign->role_id = 2;
+    $assign->role_id = 1;
     $assign->create();
 
     include '../view/register.php';

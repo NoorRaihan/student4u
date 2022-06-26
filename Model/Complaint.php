@@ -115,6 +115,42 @@
             }
         }
 
+        public static function getAllComplaintByMode($status)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+           
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
+            FROM complaint
+            JOIN user ON complaint.user_id = user.user_id
+            WHERE complaint.comp_status = '$status'
+            ORDER BY complaint.created_at DESC";
+
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }
+        }
+
+        public static function getAllComplaintHistory()
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+           
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
+            FROM complaint
+            JOIN user ON complaint.user_id = user.user_id
+            WHERE complaint.comp_status <> 'IN PROGRESS'
+            ORDER BY complaint.created_at DESC";
+            
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }
+        }
+
         public static function getAllComplaintByUID($uid)
         {
             //get a DB connection

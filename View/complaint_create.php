@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../view/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../view/dist/css/student4u.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
@@ -90,7 +91,10 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" name="submit" value="submit" class="btn btn-primary">Submit</button>
+                  <div class="response-btn">
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                  <a onclick="javascript:history.go(-1)" class="btn btn-secondary">Back</a>
                 </div>
               </form>
             </div>

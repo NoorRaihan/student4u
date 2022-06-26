@@ -135,6 +135,16 @@
         return Complaint::getAllComplaint();
     }
 
+    function view_mode_complaint($status)
+    {
+        return Complaint::getAllComplaintByMode($status);
+    }
+
+    function view_history_complaint()
+    {
+        return Complaint::getAllComplaintHistory();
+    }
+
     function view_all_complaint_uid()
     {
         $uid = intval($_SESSION['user-id']);
@@ -223,6 +233,29 @@
 
         $id = $_POST['id'];
         responseComplaint($id, $status);
+    }
+
+    if(isset($_GET['mode'])){
+        $mode = intval($_GET['mode']);
+
+        if($mode == 1) {
+            $complaints = view_all_complaint();
+            $title = "All Complaints";
+        }else if($mode == 2) {
+            $complaints = view_mode_complaint('IN PROGRESS');
+            $title = "Pending Complaints";
+        }else if($mode == 3) {
+            $complaints = view_history_complaint();
+            $title = "Complaint History";
+        }else if($mode == 4) {
+            $complaints = view_mode_complaint('APPROVED');
+            $title = "Approved Complaints";
+        }else if($mode == 5) {
+            $complaints = view_mode_complaint('REJECTED');
+            $title = "Rejected Complaints";
+        }else{
+            header('Location: 403.php');
+        }
     }
 
 ?>

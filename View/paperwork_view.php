@@ -64,7 +64,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Paperwork Submissions</h3>
+                <h3 class="card-title"><?php echo $title ?></h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -80,6 +80,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0 table-complaint-parent">
+                <div class="add-paperwork">
+                  <a href="paperwork_create.php" class="btn btn-sm btn-success"><i class="fas fa-plus-square"></i> Create Paperwork</a>
+                </div>
                 <table class="complaint-table table table-hover table-bordered table-head-fixed text-nowrap">
                   <thead>
                     <tr>
@@ -94,7 +97,6 @@
                   </thead>
                   <tbody>
                     <?php 
-                        $paperwork = getAllPaperworks();
 
                         while($data = $paperwork->fetch_assoc()) {
                             ?>

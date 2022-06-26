@@ -135,7 +135,7 @@
                 <!-- /.card-body -->
               </form>
               <div class="card-footer">
-                  <a href="complaint_view.php" class="btn btn-secondary">Back</a>
+                  <a onclick="javascript:history.go(-1)" class="btn btn-secondary">Back</a>
               </div>
             </div>
             <!-- /.card -->

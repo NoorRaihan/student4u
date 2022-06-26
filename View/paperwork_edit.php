@@ -153,7 +153,7 @@
                   <div class="response-btn">
                     <button type="submit" name="update" value="update" class="btn btn-primary">Update</button>
                   </div>
-                  <a href="paperwork_view.php" class="btn btn-secondary">Back</a>
+                  <a onclick="javascript:history.go(-1)" class="btn btn-secondary">Back</a>
                 </div>
               </form>
             </div>

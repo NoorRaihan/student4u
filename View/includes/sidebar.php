@@ -129,51 +129,33 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="complaint_create.php" class="nav-link">
+                <a href="complaint_view.php?mode=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Create a Complaint</p>
+                  <p>All Complaints</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="complaint_view.php" class="nav-link">
+                <a href="complaint_view.php?mode=2" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Complaint List</p>
+                  <p>Pending Complaints</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
+                <a href="complaint_view.php?mode=3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Boxed</p>
+                  <p>Complaints History</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
+                <a href="complaint_view.php?mode=4" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Sidebar</p>
+                  <p>Approved Complaints</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar-custom.html" class="nav-link">
+                <a href="complaint_view.php?mode=5" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Sidebar <small>+ Custom Area</small></p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Navbar</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-footer.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Fixed Footer</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Collapsed Sidebar</p>
+                  <p>Rejected Complaints</p>
                 </a>
               </li>
             </ul>
@@ -188,27 +170,33 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="paperwork_create.php" class="nav-link">
+                <a href="paperwork_view.php?mode=1" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Submit Paperwork</p>
+                  <p>All Submissions</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="paperwork_view.php" class="nav-link">
+                <a href="paperwork_view.php?mode=2" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Submission List</p>
+                  <p>Pending Submissions</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
+                <a href="paperwork_view.php?mode=3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
+                  <p>Submission History</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/uplot.html" class="nav-link">
+                <a href="paperwork_view.php?mode=4" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>uPlot</p>
+                  <p>Approved Submissions</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="paperwork_view.php?mode=5" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Rejected Submissions</p>
                 </a>
               </li>
             </ul>
