@@ -167,8 +167,8 @@
                       <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
                     </div>
                   </div>
-                </div>
               </div>
+            </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>

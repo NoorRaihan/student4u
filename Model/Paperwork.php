@@ -35,9 +35,15 @@
             $this->club_id)";
 
             //var_dump($sql);
+            session_start();
             if($conn->query($sql) == TRUE) {
-                echo "Submission created successfully!";
+                $_SESSION['message'] = "Paperwork submitted successfully!";
+                $_SESSION['modal'] = 1;
+                echo header("Location: ../view/paperwork_view.php?mode=1");
             }else {
+                $_SESSION['message'] = "Submission was not successfull";
+                $_SESSION['modal'] = 1;
+                echo header("Location: ../view/paperwork_view.php?mode=1");
                 echo  "Error: " . $sql;
             }
         }
@@ -53,12 +59,14 @@
             FROM submission
             JOIN user ON submission.user_id = user.user_id
             JOIN club ON submission.club_id = club.club_id
-            ORDER BY submission.created_at DESC";
+            ORDER BY (submission.sub_status = 'IN PROGRESS') DESC, submission.created_at DESC";
 
             //var_dump($sql);
             $result = $conn->query($sql);
             if($result == TRUE) {
                 return $result;
+            }else{
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
             }
         }
 
@@ -73,12 +81,14 @@
             JOIN user ON submission.user_id = user.user_id
             JOIN club ON submission.club_id = club.club_id
             WHERE submission.user_id = $uid
-            ORDER BY submission.created_at DESC";
+            ORDER BY (submission.sub_status = 'IN PROGRESS') DESC ,submission.created_at DESC";
 
             //var_dump($sql);
             $result = $conn->query($sql);
             if($result == TRUE) {
                 return $result;
+            }else{
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
             }
         }
 
@@ -93,12 +103,14 @@
             JOIN user ON submission.user_id = user.user_id
             JOIN club ON submission.club_id = club.club_id
             WHERE submission.sub_status = '$status'
-            ORDER BY submission.created_at DESC";
+            ORDER BY (submission.sub_status = 'IN PROGRESS') DESC, submission.created_at DESC";
 
             //var_dump($sql);
             $result = $conn->query($sql);
             if($result == TRUE) {
                 return $result;
+            }else{
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
             }
         }
 
@@ -114,12 +126,14 @@
             JOIN club ON submission.club_id = club.club_id
             WHERE submission.sub_status = '$status'
             AND submission.user_id = $uid
-            ORDER BY submission.created_at DESC";
+            ORDER BY (submission.sub_status = 'IN PROGRESS') DESC, submission.created_at DESC";
 
             //var_dump($sql);
             $result = $conn->query($sql);
             if($result == TRUE) {
                 return $result;
+            }else{
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
             }
         }
 
@@ -140,6 +154,8 @@
             $result = $conn->query($sql);
             if($result == TRUE) {
                 return $result;
+            }else{
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
             }
         }
 
@@ -161,6 +177,8 @@
             $result = $conn->query($sql);
             if($result == TRUE) {
                 return $result;
+            }else{
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
             }
         }
 
@@ -172,13 +190,20 @@
 
             $sql = "DELETE FROM submission WHERE sub_id = $id AND user_id = $uid";
 
+            session_start();
             if($conn->query($sql) == TRUE) {
                 if($conn->affected_rows != 0) {
+                    $_SESSION['message'] = "Submission deleted successfully!";
+                    $_SESSION['modal'] = 1;
+                    echo "<script>window.location.href = history.back();</script>";
                     echo "Paperwork deleted successfully!";
                 }else{
-                    echo "Data not found!";
+                    echo "<script>alert('Unauthorized data!'); window.location.href = history.back();</script>";
                 }
             }else {
+                $_SESSION['message'] = "Delete was not successful";
+                $_SESSION['modal'] = 1;
+                echo "<script>window.location.href = history.back();</script>";
                 echo  "Error: " . $sql;
             }
         }
@@ -205,6 +230,7 @@
                 }
 
             }else {
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
                 echo  "Error: " . $sql;
             }
 
@@ -232,6 +258,7 @@
                 }
 
             }else {
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
                 echo  "Error: " . $sql;
             }
 
@@ -253,14 +280,21 @@
             club_id = $this->club_id
             WHERE sub_id = $this->id AND user_id = $this->user_id";
 
-            var_dump($sql);
+            //var_dump($sql);
+            session_start();
             if($conn->query($sql) == TRUE) {
                 if($conn->affected_rows != 0){
+                    $_SESSION['message'] = "Submission updated successfully!";
+                    $_SESSION['modal'] = 1;
+                    echo "<script>window.location.href = history.back();</script>";
                     echo "paperwork updated successfully!";
                 }else{
-                    echo "Data does not exist!";
+                    echo "<script>alert('Unauthorized data!'); window.location.href = history.back();</script>";
                 }
             }else {
+                $_SESSION['message'] = "Update was not successful";
+                $_SESSION['modal'] = 1;
+                echo "<script>window.location.href = history.back();</script>";
                 echo  "Error: " . $sql;
             }
         }
@@ -279,13 +313,20 @@
             WHERE sub_id = $this->id";
 
             // var_dump($sql);
+            session_start();
             if($conn->query($sql) == TRUE) {
                 if($conn->affected_rows != 0){
+                    $_SESSION['message'] = "Response submitted successfully!";
+                    $_SESSION['modal'] = 1;
+                    echo "<script>window.location.href = '../view/paperwork_view.php?mode=1';</script>";
                     echo "paperwork updated successfully!";
                 }else{
-                    echo "Data does not exist!";
+                    echo "<script>alert('Unauthorized data!'); window.location.href = history.back();</script>";
                 }
             }else {
+                $_SESSION['message'] = "Respond was not successfull";
+                $_SESSION['modal'] = 1;
+                echo "<script>window.location.href = history.back();</script>";
                 echo  "Error: " . $sql;
             }
         }

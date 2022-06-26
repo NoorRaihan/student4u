@@ -140,7 +140,7 @@
                                         <div class="action-form">
                                             <?php 
                                             
-                                              if($data['comp_status'] != "APPROVED" && $data['comp_status'] != "REJECTED") {
+                                              if($data['comp_status'] != "APPROVED" && $data['comp_status'] != "REJECTED" && $role == 2) {
 
                                                 ?>
                                                   <form action="complaint_response.php" class="action-form-child">
