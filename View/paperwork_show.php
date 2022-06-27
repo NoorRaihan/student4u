@@ -63,8 +63,8 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="card card-danger">
-              <div class="card-header">
+        <div class="card">
+              <div class="card-header" style="background-color: #FFA500;">
                 <h3 class="card-title">Submission Detail</h3>
               </div>
               <!-- /.card-header -->

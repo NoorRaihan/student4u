@@ -68,7 +68,7 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="card card-warning">
+        <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">Complaint Response</h3>
               </div>

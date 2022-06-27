@@ -1,9 +1,10 @@
 <?php
   include '../controller/Authorize.php';
-  include '../controller/ComplaintController.php';
+  include '../controller/UserController.php';
 
-  $id = $_GET['id'];
-  $data = get_complaint($id);
+  $uid = $_GET['id'];
+  $data = getUserByUID($uid);
+
 ?>
 
 <!DOCTYPE html>
@@ -46,12 +47,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Complaint Details</h1>
+            <h1 class="m-0">Student Details</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Complaint</li>
+              <li class="breadcrumb-item active">Student List</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -65,71 +66,41 @@
         <!-- Small boxes (Stat box) -->
         <div class="card">
               <div class="card-header" style="background-color: #FFA500;">
-                <h3 class="card-title">Complaint Details</h3>
+                <h3 class="card-title">Student Details</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="../controller/ComplaintController.php" method="post" enctype="multipart/form-data">
+              <form action="">
                 <div class="card-body">
-                  <input type="text" id="id" name="id" value="<?php echo $data['comp_id'] ?>" hidden>
+                  <input type="text" id="id" name="id" value="<?php echo $data['user_id'] ?>" hidden>
                   <div class="form-group form-status">
-                    <label for=" exampleInputEmail1">Status: </label> <span class="badge <?php
-
-                      if($data['comp_status'] == "APPROVED") {
-                        echo 'bg-success';
-                      }else if($data['comp_status'] == "REJECTED") {
-                        echo 'bg-danger';
+                    <label for=" exampleInputEmail1">Status: </label> <span class="badge bg-success"><?php echo $data['user_status'] ?></span></td>
+                  </div>
+                  <div class="form-group">
+                      <label for=" exampleInputEmail1">Student ID: </label><br> <?php echo $data['matrix_no'] ?>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Student Name: </label><br> <?php echo $data['user_name'] ?>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Student Role: </label><br> <?php echo $data['role_desc'] ?>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Student Position: </label><br> <?php 
+                    
+                      if($data['position'] == NULL) {
+                        echo "Normal Student";
                       }else{
-                        echo 'bg-warning';
+                        echo $data['position'];
                       }
-
-                    ?>"><?php echo $data['comp_status'] ?></span></td>
+                    
+                    ?>
                   </div>
                   <div class="form-group">
-                      <label for=" exampleInputEmail1">Student ID: </label> <?php echo $data['matrix_no'] ?>
+                    <label for=" exampleInputEmail1">Student Phone: </label><br> <?php echo $data['user_phone'] ?>
                   </div>
                   <div class="form-group">
-                    <label for=" exampleInputEmail1">Student Name: </label> <?php echo $data['user_name'] ?>
-                  </div>
-                  <div class="form-group">
-                    <label for=" exampleInputEmail1">Complaint Description</label>
-                    <textarea readonly class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_desc'] ?></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputFile">Evidence File (if any)</label><br>
-
-                    <?php 
-                      if($data['attached_file'] != NULL || $data['attached_file'] != "" ) {
-
-                        ?>
-                        <div id="view-file" class="view-file">
-                          <a href="<?php echo $data['attached_file'] ?>" class='btn btn-secondary btn-sm'><i class='fas fa-file'></i></a>
-                            <a><?php echo $data['attached_file'] ?></a>
-                          </div>
-                        <?php
-                      }else{
-                        ?>
-                        <div id="add-file" class="add-file">
-                          <p>No File Attached</p>
-                        </div>
-                          
-                        <?php
-                      }
-                       
-                      if($data['comp_status'] == "APPROVED" || $data['comp_status'] == "REJECTED") {
-                        
-                        ?>
-                          <div class="form-group" style="margin-top: 20px;">
-                            <label for=" exampleInputEmail1">MPP Response</label>
-                            <textarea readonly class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_response'] ?></textarea>
-                          </div>
-                        <?php
-                      }
-                  ?>
-                  </div>
-                  <div class="form-check anon-checkbox">
-                    <input disabled="disabled" type="checkbox" name="hide" class="form-check-input" value="1" id="exampleCheck1" <?php echo $data['hide'] == "1" ? "checked" : ""  ?>>
-                    <label class="form-check-label" for="exampleCheck1">Submit as Anonymous</label>
+                    <label for=" exampleInputEmail1">Student Email: </label><br> <?php echo $data['user_email'] ?>
                   </div>
                 </div>
                 <!-- /.card-body -->

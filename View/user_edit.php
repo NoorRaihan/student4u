@@ -1,9 +1,10 @@
 <?php
   include '../controller/Authorize.php';
-  include '../controller/ComplaintController.php';
+  include '../controller/UserController.php';
+  include_once '../controller/RoleValidation.php';
 
-  $id = $_GET['id'];
-  $data = get_complaint($id);
+  $uid = $_SESSION['user_id'];
+  $data = getUserByUID($uid);
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +47,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Complaint Details</h1>
+            <h1 class="m-0">Edit Complaint</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -63,82 +64,77 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="card">
-              <div class="card-header" style="background-color: #FFA500;">
-                <h3 class="card-title">Complaint Details</h3>
+        <div class="card card-warning">
+              <div class="card-header">
+                <h3 class="card-title">User Settings</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="../controller/ComplaintController.php" method="post" enctype="multipart/form-data">
+              <form action="../controller/UserController.php" method="post">
                 <div class="card-body">
-                  <input type="text" id="id" name="id" value="<?php echo $data['comp_id'] ?>" hidden>
+                  <input type="text" id="id" name="id" value="<?php echo $data['user_id'] ?>" hidden>
                   <div class="form-group form-status">
-                    <label for=" exampleInputEmail1">Status: </label> <span class="badge <?php
-
-                      if($data['comp_status'] == "APPROVED") {
-                        echo 'bg-success';
-                      }else if($data['comp_status'] == "REJECTED") {
-                        echo 'bg-danger';
-                      }else{
-                        echo 'bg-warning';
-                      }
-
-                    ?>"><?php echo $data['comp_status'] ?></span></td>
+                    <label for=" exampleInputEmail1">Status: </label> <span class="badge bg-success"><?php echo $data['user_status'] ?></span></td>
                   </div>
                   <div class="form-group">
                       <label for=" exampleInputEmail1">Student ID: </label> <?php echo $data['matrix_no'] ?>
                   </div>
                   <div class="form-group">
-                    <label for=" exampleInputEmail1">Student Name: </label> <?php echo $data['user_name'] ?>
+                    <label for=" exampleInputEmail1">Student Name: </label>
+                    <input type="text" value="<?php echo $data['user_name'] ?>" name="name" class="form-control" placeholder="Student Name">
                   </div>
                   <div class="form-group">
-                    <label for=" exampleInputEmail1">Complaint Description</label>
-                    <textarea readonly class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_desc'] ?></textarea>
+                    <label for=" exampleInputEmail1">Student Phone: </label>
+                    <input type="text" value="<?php echo $data['user_phone'] ?>" name="phone" class="form-control" placeholder="Student 0123456789">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputFile">Evidence File (if any)</label><br>
-
-                    <?php 
-                      if($data['attached_file'] != NULL || $data['attached_file'] != "" ) {
-
-                        ?>
-                        <div id="view-file" class="view-file">
-                          <a href="<?php echo $data['attached_file'] ?>" class='btn btn-secondary btn-sm'><i class='fas fa-file'></i></a>
-                            <a><?php echo $data['attached_file'] ?></a>
-                          </div>
-                        <?php
-                      }else{
-                        ?>
-                        <div id="add-file" class="add-file">
-                          <p>No File Attached</p>
-                        </div>
-                          
-                        <?php
-                      }
-                       
-                      if($data['comp_status'] == "APPROVED" || $data['comp_status'] == "REJECTED") {
-                        
-                        ?>
-                          <div class="form-group" style="margin-top: 20px;">
-                            <label for=" exampleInputEmail1">MPP Response</label>
-                            <textarea readonly class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"><?php echo $data['comp_response'] ?></textarea>
-                          </div>
-                        <?php
-                      }
-                  ?>
+                    <label for=" exampleInputEmail1">Student Email: </label>
+                    <input type="text" value="<?php echo $data['user_email'] ?>" name="email" class="form-control" placeholder="Student Email">
                   </div>
-                  <div class="form-check anon-checkbox">
-                    <input disabled="disabled" type="checkbox" name="hide" class="form-check-input" value="1" id="exampleCheck1" <?php echo $data['hide'] == "1" ? "checked" : ""  ?>>
-                    <label class="form-check-label" for="exampleCheck1">Submit as Anonymous</label>
+                  <div>
+                  <label for=" exampleInputEmail1">Gender: </label>
+                    <input type="radio" id="male" name="gender" value="M" <?php echo $data['user_gender'] == 'M' ? 'Checked' : '' ?>>
+                    <label for="male">Male</label>
+                    <input type="radio" id="fem" name="gender" value="F" <?php echo $data['user_gender'] == 'F' ? 'Checked' : '' ?> style="margin-left: 40px;">
+                    <label for="fem">Female</label>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">New Password: </label>
+                    <input type="password" name="password" class="form-control" placeholder="New Password">
                   </div>
                 </div>
+                
                 <!-- /.card-body -->
-              </form>
-              <div class="card-footer">
+
+                <div class="card-footer">
+                  
+                  <div class="response-btn">
+                    <button type="submit" name="update" class="btn btn-primary">Update</button>
+                  </div>
                   <a onclick="javascript:history.go(-1)" class="btn btn-secondary">Back</a>
-              </div>
+                </div>
+              </form>
             </div>
             <!-- /.card -->
+            <!-- Modal -->
+            <div class="modal fade show" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Message</h5>
+                      <button type="button" class="close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p><?php echo $_SESSION['message'] ?></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
@@ -163,6 +159,25 @@
 <?php include '../view/includes/js.php' ?>
 
 <script>
+
+  modal = document.getElementById("modalInfo");
+    
+  <?php
+  if(isset($_SESSION['modal'])) {
+    ?>
+    modal.style.display = "block";
+    <?php
+    unset($_SESSION['modal']);
+    unset($_SESSION['message']);
+  }
+  ?>
+
+  function closeModal()
+  {
+    modal = document.getElementById("modalInfo");
+    modal.style.display = "none";
+  }
+
   $(function () {
     bsCustomFileInput.init();
   });

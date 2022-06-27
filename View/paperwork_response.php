@@ -52,7 +52,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Submission Detail</h1>
+            <h1 class="m-0">Paperwork Response</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -69,9 +69,9 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="card card-danger">
+        <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title">Submission Detail</h3>
+                <h3 class="card-title">Paperwork Response</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->

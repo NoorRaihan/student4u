@@ -207,7 +207,7 @@
             $file = $_FILES['file'];
     
             //file properties;
-            $file_ext = array("txt","jpg","zip","rar","gif","png","jpeg");
+            $file_ext = array("txt","jpg","zip","rar","gif","png","jpeg","pdf");
             $filename = $file['name'];
             $file_type = $file['type'];
             $file_size = $file['size'];

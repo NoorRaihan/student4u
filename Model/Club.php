@@ -37,6 +37,34 @@
                 return $results; 
             }
         }
+
+        public static function deleteByID($id)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "DELETE FROM club WHERE club_id = $id";
+
+            if($result = $conn->query($sql) == TRUE) {
+
+                session_start();
+                if($conn->affected_rows != 0) {
+                    $_SESSION['message'] = "Club deleted successfully!";
+                    $_SESSION['modal'] = 1;
+                    echo "<script>window.location.href = history.back();</script>";
+                    echo "Club deleted successfully!";
+                }else{
+                    echo "<script>alert('Unauthorized data!'); window.location.href = history.back();</script>";
+                }
+            }else {
+                $_SESSION['message'] = "Delete was not successful";
+                $_SESSION['modal'] = 1;
+                echo "<script>window.location.href = history.back();</script>";
+                echo  "Error: " . $sql;
+            }
+
+        }
     }
 
 ?>

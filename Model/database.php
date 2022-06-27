@@ -6,16 +6,16 @@
         private $conn;
 
         //Development
-        // private $server = "localhost";
-        // private $username = "root";
-        // private $password = "";
-        // private $dbname = "student4u";
+        private $server = "localhost";
+        private $username = "root";
+        private $password = "";
+        private $dbname = "student4u";
 
         //Deployment
-        private $server = "sql6.freemysqlhosting.net";
-        private $username = "sql6502402";
-        private $password = "Abj6cNqSFE";
-        private $dbname = "sql6502402";
+        // private $server = "sql6.freemysqlhosting.net";
+        // private $username = "sql6502402";
+        // private $password = "Abj6cNqSFE";
+        // private $dbname = "sql6502402";
 
         private function __construct() {
 
