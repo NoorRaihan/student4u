@@ -1,5 +1,7 @@
 <?php
   include '../controller/Authorize.php';
+  include '../controller/DashboardController.php';
+  include_once '../controller/RoleValidation.php';
 ?>
 
 <!DOCTYPE html>
@@ -38,15 +40,150 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+      <?php 
+        if($role == 2) {
+          
+          ?>
+          <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box">
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Total<br>Student Registered</span>
+                  <span class="info-box-number">
+                    <?php echo $totalUser ?>
+                  </span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-primary elevation-1" style="background-color: #5D3FD3!important;"><i class="fas fa-cube"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Total<br>Club Registered</span>
+                  <span class="info-box-number"><?php echo $totalClub ?></span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix hidden-md-up"></div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file "></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Complaint<br>Response Rate</span>
+                  <span class="info-box-number"><?php echo $complaintResponse ?></span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-paperclip"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Paperwork<br>Response Rate</span>
+                  <span class="info-box-number"><?php echo $paperworkResponse ?></span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+          <?php
+        }
+      ?>
         <!-- Small boxes (Stat box) -->
+        <h4>Complaints</h4>
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3><?php echo $complaintTotal ?></h3>
 
-                <p>New Orders</p>
+                <p>Total Complaint</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3><?php echo $complaintPending ?></h3>
+
+                <p>Pending Complaint</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-spinner"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3><?php echo $complaintApproved ?></h3>
+
+                <p>Approved Complaint</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3><?php echo  $complaintRejected ?></h3>
+
+                <p>Rejected Complaint</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-ban"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+
+                <!-- Small boxes (Stat box) -->
+        <h4>Paperwork Submission</h4>
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><?php echo  $paperworkTotal ?></h3>
+
+                <p>Total Submission</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -57,14 +194,14 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-warning">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3><?php echo  $paperworkPending ?></h3>
 
-                <p>Bounce Rate</p>
+                <p>Pending Submission</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-spinner"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -72,14 +209,14 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-success">
               <div class="inner">
-                <h3>44</h3>
+                <h3><?php echo  $paperworkApproved ?></h3>
 
-                <p>User Registrations</p>
+                <p>Approved Submission</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-check-circle"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -89,12 +226,12 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3><?php echo  $paperworkRejected ?></h3>
 
-                <p>Unique Visitors</p>
+                <p>Rejected Submission</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-ban"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -104,95 +241,10 @@
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Sales
-                </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
-                    </li>
-                  </ul>
-                </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
-                </div>
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <!-- /.card -->
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <section class="col-lg-5 connectedSortable">
-
-            <!-- Map card -->
-            <div class="card bg-gradient-primary">
-              <div class="card-header border-0">
-                <h3 class="card-title">
-                  <i class="fas fa-map-marker-alt mr-1"></i>
-                  Visitors
-                </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-                  <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                    <i class="far fa-calendar-alt"></i>
-                  </button>
-                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-                <!-- /.card-tools -->
-              </div>
-              <div class="card-body">
-                <div id="world-map" style="height: 250px; width: 100%;"></div>
-              </div>
-              <!-- /.card-body-->
-              <div class="card-footer bg-transparent">
-                <div class="row">
-                  <div class="col-4 text-center">
-                    <div id="sparkline-1"></div>
-                    <div class="text-white">Visitors</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-2"></div>
-                    <div class="text-white">Online</div>
-                  </div>
-                  <!-- ./col -->
-                  <div class="col-4 text-center">
-                    <div id="sparkline-3"></div>
-                    <div class="text-white">Sales</div>
-                  </div>
-                  <!-- ./col -->
-                </div>
-                <!-- /.row -->
-              </div>
-            </div>
-            <!-- /.card -->
-            <!-- /.card -->
-
-            <!-- /.card -->
-          </section>
-          <!-- right col -->
+          <!-- 16:9 aspect ratio -->
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="../view/dist/img/video.mp4"></iframe>
+          </div>
         </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->

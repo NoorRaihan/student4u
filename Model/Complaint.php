@@ -335,6 +335,23 @@
                 echo  "Error: " . $sql;
             }
         }
+
+        public static function responseTime()
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "SELECT comp_id, TIMESTAMPDIFF(MINUTE, created_at, updated_at) AS DIFFERENCE 
+            FROM complaint WHERE week(created_at) = week(now()) AND comp_status <> 'IN PROGRESS'";
+
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }else{
+               return NAN;
+            }
+        }
     }
 
 ?>
