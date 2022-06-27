@@ -160,7 +160,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="mpp_create.php" class="nav-link">
                     <i class="fas fa-address-card nav-icon"></i>
                     <p>Register MPP Member</p>
                   </a>

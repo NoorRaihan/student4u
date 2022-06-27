@@ -2,7 +2,7 @@
 
     session_status() === PHP_SESSION_ACTIVE ?: session_start();
     include_once '../model/database.php';
-    include '../model/User.php';
+    include_once '../model/User.php';
     include_once '../controller/RoleValidation.php';
 
     function getAllUser()
@@ -13,6 +13,11 @@
     function getUserByUID($uid)
     {
         return User::get_user($uid);
+    }
+
+    function getUserByMatrix($matrix)
+    {
+        return User::get_user(NULL, $matrix);
     }
 
     function updateUser($uid)

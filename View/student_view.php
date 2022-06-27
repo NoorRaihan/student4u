@@ -122,6 +122,13 @@
                                           <form action="student_show.php" class="action-form-child">
                                             <button type="submit" name="id" value="<?php echo $data['user_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                           </form>
+                                          <?php
+                                            if($data['role_id'] == 2) {
+                                              ?>
+                                                <button onclick="passID(<?php echo $data['user_id'] ?>, <?php echo $data['role_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash"></i></button>
+                                              <?php
+                                            }
+                                          ?>
                                         </div>
                                     </td>
                                 </tr>
@@ -142,12 +149,13 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <p>Are you confirm to delete this submission?</p>
+                      <p>Are you confirm to remove current user as MPP?</p>
                     </div>
                     <div class="modal-footer">
-                      <form action="../controller/PaperworkController.php" method="POST">
+                      <form action="../controller/MPPController.php" method="POST">
                         <input name="id" id="id" type="hidden">
-                        <button type="submit" name="delete" value="delete" class="btn btn-danger">Delete</button>
+                        <input name="role" id="role" type="hidden">
+                        <button type="submit" name="remove" value="remove" class="btn btn-danger">Remove</button>
                       </form>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       
@@ -226,9 +234,11 @@
     bsCustomFileInput.init();
   });
 
-  function passID(id) {
+  function passID(id, role) {
     input = document.getElementById("id");
+    input2 = document.getElementById("role");
     input.value = id;
+    input2.value = role;
   }
 </script>
 </body>

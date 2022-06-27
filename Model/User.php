@@ -50,7 +50,8 @@
             $sql = "SELECT user.*, assign.role_id, assign.position, role.role_desc 
             FROM user
             LEFT JOIN assign ON user.user_id = assign.user_id 
-            LEFT JOIN role ON assign.role_id = role.role_id";
+            LEFT JOIN role ON assign.role_id = role.role_id
+            ORDER BY assign.role_id DESC";
 
             $result = $conn->query($sql);
 
@@ -80,7 +81,8 @@
             FROM user 
             LEFT JOIN assign ON user.user_id = assign.user_id 
             LEFT JOIN role ON assign.role_id = role.role_id 
-            WHERE user.user_id = $id OR user.matrix_no = $matrix";
+            WHERE user.user_id = $id OR user.matrix_no = $matrix
+            ORDER BY assign.role_id DESC";
 
             $result = $conn->query($sql);
 

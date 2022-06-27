@@ -76,9 +76,9 @@
 
             $sql = "DELETE FROM club WHERE club_id = $id";
 
+            session_start();
             if($result = $conn->query($sql) == TRUE) {
 
-                session_start();
                 if($conn->affected_rows != 0) {
                     $_SESSION['message'] = "Club deleted successfully!";
                     $_SESSION['modal'] = 1;
