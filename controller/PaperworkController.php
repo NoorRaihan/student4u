@@ -169,6 +169,27 @@
         return Paperwork::getPaperworkByID($id);
     }
 
+    function searchPaperworkClub($club)
+    {
+        //get a DB connection
+        $instance = Database::getInstance();
+        $conn = $instance->getDBConnection();
+
+        $event = $conn->real_escape_string($club);
+        return Paperwork::searchPaperworkClub($club);
+    }
+
+    function searchPaperworkClubUID($club,$uid)
+    {
+        //get a DB connection
+        $instance = Database::getInstance();
+        $conn = $instance->getDBConnection();
+
+        $event = $conn->real_escape_string($club);
+        $uid = intval($uid);
+        return Paperwork::searchPaperworkClubUID($club);
+    }
+
     function deletePaperworkByUID($id)
     {
         $id = intval($id);
@@ -332,4 +353,5 @@
             }
         }
     }
+
 ?>
