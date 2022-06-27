@@ -48,7 +48,7 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name, user.user_email, user.user_phone
             FROM complaint
             JOIN user ON user.user_id = complaint.user_id
             WHERE complaint.comp_id = $id";
@@ -78,7 +78,7 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name, user.user_email, user.user_phone
             FROM complaint
             JOIN user ON user.user_id = complaint.user_id
             WHERE complaint.comp_id = $id AND complaint.user_id = $uid";

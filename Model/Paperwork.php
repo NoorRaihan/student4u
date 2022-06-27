@@ -214,7 +214,7 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name 
+            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name, user.user_email, user.user_phone
             FROM submission
             JOIN user ON submission.user_id = user.user_id
             JOIN club ON submission.club_id = club.club_id
@@ -242,7 +242,7 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name 
+            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name, user.user_email, user.user_phone
             FROM submission
             JOIN user ON submission.user_id = user.user_id
             JOIN club ON submission.club_id = club.club_id

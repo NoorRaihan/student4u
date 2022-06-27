@@ -84,7 +84,19 @@
 
                     ?>"><?php echo $data['sub_status'] ?></span></td>
                 </div>
-                <div class="form-group">
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Matric Number:</label><?php echo $data['matrix_no'] ?>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Student Name:</label><?php echo $data['user_name'] ?>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Student Phone:</label><?php echo $data['user_phone'] ?>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Student Email:</label><?php echo $data['user_email'] ?>
+                  </div>
+                  <div class="form-group">
                     <label for=" exampleInputEmail1">Student Position</label>
                     <p><?php echo $data['sender_role'] ?></p>
                   </div>

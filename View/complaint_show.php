@@ -85,11 +85,26 @@
 
                     ?>"><?php echo $data['comp_status'] ?></span></td>
                   </div>
-                  <div class="form-group">
-                      <label for=" exampleInputEmail1">Student ID: </label> <?php echo $data['matrix_no'] ?>
+                  <?php 
+
+                    if($data['hide'] == 1 && $role == 2) {
+                      $data['matrix_no'] = "N/A";
+                      $data['user_name'] = "N/A";
+                      $data['user_phone'] = "N/A";
+                      $data['user_email'] = "N/A";
+                    }
+                  ?>
+                 <div class="form-group">
+                    <label for=" exampleInputEmail1">Matric Number:</label><?php echo $data['matrix_no'] ?>
                   </div>
                   <div class="form-group">
-                    <label for=" exampleInputEmail1">Student Name: </label> <?php echo $data['user_name'] ?>
+                    <label for=" exampleInputEmail1">Student Name:</label><?php echo $data['user_name'] ?>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Student Phone:</label><?php echo $data['user_phone'] ?>
+                  </div>
+                  <div class="form-group">
+                    <label for=" exampleInputEmail1">Student Email:</label><?php echo $data['user_email'] ?>
                   </div>
                   <div class="form-group">
                     <label for=" exampleInputEmail1">Complaint Description</label>
