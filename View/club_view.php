@@ -1,6 +1,6 @@
 <?php
   include '../controller/Authorize.php';
-  include '../controller/UserController.php';
+  include '../controller/ClubController.php';
   include_once '../controller/RoleValidation.php';
 ?>
 
@@ -45,12 +45,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Student List</h1>
+            <h1 class="m-0">Club List</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Student List</li>
+              <li class="breadcrumb-item active">Club List</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -65,12 +65,11 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Student List</h3>
+                <h3 class="card-title">Club List</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default">
                         <i class="fas fa-search"></i>
@@ -81,47 +80,40 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0 table-complaint-parent">
+              <div class="add-complaint">
+                  <?php
+
+                    if($role == 2) {
+                      echo "<a href='club_create.php' class='btn btn-sm btn-success'><i class='fas fa-plus-square'></i> Add Club</a>";
+                    }
+
+                  ?>
+                </div>
                 <table class="complaint-table table table-hover table-bordered table-head-fixed text-nowrap">
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Matric No</th>
-                      <th>Student Name</th>
-                      <th>Role</th>
-                      <th>Position</th>
-                      <th>Phone</th>
-                      <th>Email</th>
-                      <th>Status</th>
+                      <th>Club Name</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php 
-                        $user = User::getAllUser();
-                        while($data = $user->fetch_assoc()) {
+                        $club = getAllClub();
+                        while($data = $club->fetch_assoc()) {
                             ?>
                                 <tr>
-                                    <td><?php echo $data['user_id'] ?></td>
-                                    <td><?php echo $data['matrix_no'] ?></td>
-                                    <td><?php echo $data['user_name'] ?></td>
-                                    <td><?php echo $data['role_desc'] ?></td>
-                                    <td><?php 
-                                    
-                                        if($data['position'] == NULL) {
-                                            echo "Normal Student";
-                                        }else{
-                                            echo $data['position'];
-                                        }
-                                    
-                                    ?></td>
-                                    <td><?php echo $data['user_phone'] ?></td>
-                                    <td><?php echo $data['user_email'] ?></td>
-                                    <td><span class="badge bg-success"><?php echo $data['user_status'] ?></span></td>
+                                    <td><?php echo $data['club_id'] ?></td>
+                                    <td><?php echo $data['club_name'] ?></td>
                                     <td>
                                         <div class="action-form">
-                                          <form action="student_show.php" class="action-form-child">
-                                            <button type="submit" name="id" value="<?php echo $data['user_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                          <form action="club_show.php" class="action-form-child">
+                                            <button type="submit" name="id" value="<?php echo $data['club_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                           </form>
+                                          <form action="club_edit.php" method="GET" class="action-form-child">
+                                            <button type="submit" name="id" value="<?php echo $data['club_id'] ?>" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
+                                          </form>
+                                          <button onclick="passID(<?php echo $data['club_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -132,7 +124,7 @@
                 </table>
               </div>
               <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -145,12 +137,11 @@
                       <p>Are you confirm to delete this submission?</p>
                     </div>
                     <div class="modal-footer">
-                      <form action="../controller/PaperworkController.php" method="POST">
+                      <form action="../controller/ClubController.php" method="POST">
                         <input name="id" id="id" type="hidden">
                         <button type="submit" name="delete" value="delete" class="btn btn-danger">Delete</button>
                       </form>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      
                     </div>
                   </div>
                 </div>

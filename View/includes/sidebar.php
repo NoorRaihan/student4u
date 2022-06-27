@@ -143,7 +143,7 @@
 
                 <li class="nav-header">CLUB</li>
                 <li class="nav-item">
-                  <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+                  <a href="club_view.php" class="nav-link">
                     <i class="nav-icon fas fa-list"></i>
                     <p>Club List</p>
                   </a>
@@ -152,12 +152,6 @@
           
                   if($role == 2) {
                     ?>
-                <li class="nav-item">
-                <a href="iframe.html" class="nav-link">
-                  <i class="nav-icon fas fa-puzzle-piece"></i>
-                    <p>Club Registration</p>
-                </a>
-                </li>
                 <li class="nav-header">USER MANAGEMENT</li>
                 <li class="nav-item">
                   <a href="student_view.php" class="nav-link">

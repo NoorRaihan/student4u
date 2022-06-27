@@ -1,10 +1,6 @@
 <?php
   include '../controller/Authorize.php';
-  include '../controller/UserController.php';
-  include_once '../controller/RoleValidation.php';
-
-  $uid = $_SESSION['user_id'];
-  $data = getUserByUID($uid);
+  include '../controller/ClubController.php';
 ?>
 
 <!DOCTYPE html>
@@ -47,12 +43,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">User Setting</h1>
+            <h1 class="m-0">Create Club</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User Setting</li>
+              <li class="breadcrumb-item active">Club</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -64,52 +60,23 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="card card-warning">
-              <div class="card-header">
-                <h3 class="card-title">User Setting</h3>
+        <div class="card">
+              <div class="card-header" style="background-color: #FFA500;">
+                <h3 class="card-title">Create Club</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="../controller/UserController.php" method="post">
+              <form action="../controller/ClubController.php" method="post" enctype="multipart/form-data">
                 <div class="card-body">
-                  <input type="text" id="id" name="id" value="<?php echo $data['user_id'] ?>" hidden>
-                  <div class="form-group form-status">
-                    <label for=" exampleInputEmail1">Status: </label> <span class="badge bg-success"><?php echo $data['user_status'] ?></span></td>
-                  </div>
                   <div class="form-group">
-                      <label for=" exampleInputEmail1">Student ID: </label> <?php echo $data['matrix_no'] ?>
+                    <label for=" exampleInputEmail1">Club Name: </label>
+                    <input type="text" name="name" class="form-control" placeholder="Club Name">
                   </div>
-                  <div class="form-group">
-                    <label for=" exampleInputEmail1">Student Name: </label>
-                    <input type="text" value="<?php echo $data['user_name'] ?>" name="name" class="form-control" placeholder="Student Name">
-                  </div>
-                  <div class="form-group">
-                    <label for=" exampleInputEmail1">Student Phone: </label>
-                    <input type="text" value="<?php echo $data['user_phone'] ?>" name="phone" class="form-control" placeholder="Student 0123456789">
-                  </div>
-                  <div class="form-group">
-                    <label for=" exampleInputEmail1">Student Email: </label>
-                    <input type="text" value="<?php echo $data['user_email'] ?>" name="email" class="form-control" placeholder="Student Email">
-                  </div>
-                  <div>
-                  <label for=" exampleInputEmail1">Gender: </label>
-                    <input type="radio" id="male" name="gender" value="M" <?php echo $data['user_gender'] == 'M' ? 'Checked' : '' ?>>
-                    <label for="male">Male</label>
-                    <input type="radio" id="fem" name="gender" value="F" <?php echo $data['user_gender'] == 'F' ? 'Checked' : '' ?> style="margin-left: 40px;">
-                    <label for="fem">Female</label>
-                  </div>
-                  <div class="form-group">
-                    <label for=" exampleInputEmail1">New Password: </label>
-                    <input type="password" name="password" class="form-control" placeholder="New Password">
-                  </div>
-                </div>
-                
                 <!-- /.card-body -->
-
                 <div class="card-footer">
                   
                   <div class="response-btn">
-                    <button type="submit" name="update" class="btn btn-primary">Update</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                   </div>
                   <a onclick="javascript:history.go(-1)" class="btn btn-secondary">Back</a>
                 </div>
@@ -162,21 +129,21 @@
 
   modal = document.getElementById("modalInfo");
     
-  <?php
-  if(isset($_SESSION['modal'])) {
-    ?>
-    modal.style.display = "block";
     <?php
-    unset($_SESSION['modal']);
-    unset($_SESSION['message']);
-  }
-  ?>
-
-  function closeModal()
-  {
-    modal = document.getElementById("modalInfo");
-    modal.style.display = "none";
-  }
+    if(isset($_SESSION['modal'])) {
+      ?>
+      modal.style.display = "block";
+      <?php
+      unset($_SESSION['modal']);
+      unset($_SESSION['message']);
+    }
+    ?>
+  
+    function closeModal()
+    {
+      modal = document.getElementById("modalInfo");
+      modal.style.display = "none";
+    }
 
   $(function () {
     bsCustomFileInput.init();
