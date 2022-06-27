@@ -101,6 +101,43 @@
             $conn->close();
         }
 
+        public static function get_user_role($id=NULL, $matrix=NULL, $role) 
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            //check if the parameter is empty or not
+            $id = !empty($id) ? $id : NULL;
+            $matrix = !empty($matrix) ? $matrix : 'NULL';
+
+            //convert to the integer value
+            $id = intval($id); 
+
+            $sql = "SELECT user.*, assign.role_id, assign.position, role.role_desc 
+            FROM user 
+            LEFT JOIN assign ON user.user_id = assign.user_id 
+            LEFT JOIN role ON assign.role_id = role.role_id 
+            WHERE user.user_id = $id OR user.matrix_no = $matrix
+            AND role.role_id = $role";
+
+            $result = $conn->query($sql);
+
+            if($result == TRUE) {
+                if($result->num_rows > 0) {
+                    $user = $result->fetch_assoc();
+                    return $user;
+                }else {
+                    return NULL;
+                }
+
+            }else {
+                echo  "Error: " . $sql;
+            }
+
+            $conn->close();
+        }
+
         public function update() 
         {
             //get a DB connection

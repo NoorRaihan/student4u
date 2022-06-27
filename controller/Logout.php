@@ -6,6 +6,7 @@
     unset($_SESSION["log_in"]);
     unset($_SESSION["id"]);
     unset($_SESSION["username"]);
+    unset($_SESSION["role"]);
     session_destroy();
     
     header("location: ../view/login.php");
