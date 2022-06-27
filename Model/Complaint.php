@@ -125,6 +125,28 @@
             }
         }
 
+        public static function searchComplaintMatric($matric)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+           
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
+            FROM complaint
+            JOIN user ON complaint.user_id = user.user_id
+            WHERE user.matrix_no LIKE '$matric%'
+            ORDER BY (complaint.comp_status = 'IN PROGRESS') DESC ,complaint.created_at DESC";
+
+            //var_dump($sql);
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }else{
+                echo "<script>alert('Extracting complaint went wrong!'); window.location.href = '../view/complaint_view.php?mode=1'</script>";
+            }
+        }
+
         public static function getAllComplaintByMode($status)
         {
             //get a DB connection

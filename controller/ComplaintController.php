@@ -162,6 +162,17 @@
         return Complaint::getAllComplaintByUID($uid);
     }
 
+    function search_complaint_matric($matric)
+    {
+
+        //get a DB connection
+        $instance = Database::getInstance();
+        $conn = $instance->getDBConnection();
+
+        $matric = $conn->real_escape_string($matric);
+        return Complaint::searchComplaintMatric($matric);
+    }
+
     function get_complaint_UID($id)
     {
         $id = intval($id);
