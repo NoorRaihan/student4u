@@ -27,7 +27,7 @@
 
       <form action="../controller/LoginController.php" method="post">
         <div class="text-center">
-          <input type="radio" id="mpp" name="role" value="2">
+          <input type="radio" id="mpp" name="role" value="2" required>
           <label for="mpp">MPP</label>
           <input type="radio" id="stud" name="role" value="1" style="margin-left: 40px;">
           <label for="stud">Student</label>

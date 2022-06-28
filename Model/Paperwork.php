@@ -214,7 +214,7 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name 
+            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name, user.user_email, user.user_phone
             FROM submission
             JOIN user ON submission.user_id = user.user_id
             JOIN club ON submission.club_id = club.club_id
@@ -242,7 +242,7 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name 
+            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name, user.user_email, user.user_phone
             FROM submission
             JOIN user ON submission.user_id = user.user_id
             JOIN club ON submission.club_id = club.club_id
@@ -328,6 +328,67 @@
                 $_SESSION['modal'] = 1;
                 echo "<script>window.location.href = history.back();</script>";
                 echo  "Error: " . $sql;
+            }
+        }
+
+        public static function searchPaperworkClub($club)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name 
+            FROM submission
+            JOIN user ON submission.user_id = user.user_id
+            JOIN club ON submission.club_id = club.club_id
+            WHERE club.club_name LIKE '%$club%'
+            ORDER BY submission.created_at DESC";
+
+            //var_dump($sql);
+            $result = $conn->query($sql);
+            if($result == TRUE) {
+                return $result;
+            }else{
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
+            }
+        }
+
+        public static function searchPaperworkClubUID($event,$uid)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "SELECT submission.*, user.matrix_no, user.user_name, club.club_name 
+            FROM submission
+            JOIN user ON submission.user_id = user.user_id
+            JOIN club ON submission.club_id = club.club_id
+            WHERE club.club_name LIKE '%'$event'%' AND submission.user_id = $uid
+            ORDER BY submission.created_at DESC";
+
+            //var_dump($sql);
+            $result = $conn->query($sql);
+            if($result == TRUE) {
+                return $result;
+            }else{
+                echo "<script>alert('Extracting submissions went wrong!'); window.location.href = '../view/paperwork_view.php?mode=1'</script>";
+            }
+        }
+
+        public static function responseTime()
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "SELECT sub_id, TIMESTAMPDIFF(MINUTE, created_at, updated_at) AS DIFFERENCE 
+            FROM submission WHERE week(created_at) = week(now()) AND sub_status <> 'IN PROGRESS'";
+
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }else{
+               return NAN;
             }
         }
         

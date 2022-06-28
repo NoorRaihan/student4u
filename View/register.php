@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +24,9 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Register a new Student</p>
-
+      <div class="err" id="err" style="text-align: center; display: none;">
+        <p style="color: red;">Matrics No already existed!</p>
+      </div>
       <form action="../controller/RegisterController.php" method="post">
 
         <div class="input-group mb-3">
@@ -85,13 +89,70 @@
 
       </form>
 
-      
+      <!-- Modal -->
+      <div class="modal fade show" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Message</h5>
+              <button type="button" class="close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><?php echo $_SESSION['message'] ?></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->
 </div>
 <!-- /.register-box -->
+<script>
 
+  modal = document.getElementById("modalInfo");
+  error = document.getElementById("err");
+    
+  <?php
+  if(isset($_SESSION['modal'])) {
+    ?>
+    modal.style.display = "block";
+    <?php
+  }
+
+  if(isset($_SESSION['err'])) {
+    ?>
+    error.style.display = "block";
+    <?php
+    unset($_SESSION['err']);
+  }
+  ?>
+
+  function closeModal()
+  {
+    error = document.getElementById("modalInfo");
+    modal.style.display = "none";
+    <?php
+    if($_SESSION['modal'] == 2){
+      unset($_SESSION['modal']);
+      unset($_SESSION['message']);
+    }else{
+      unset($_SESSION['modal']);
+      unset($_SESSION['message']);
+      ?>
+      window.location.href = "login.php";
+      <?php
+    }
+
+    ?> 
+  }
+
+</script>
 <!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

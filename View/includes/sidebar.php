@@ -1,5 +1,6 @@
 <?php
   include_once '../controller/DashboardController.php';
+  include_once '../controller/RoleValidation.php';
 ?>
 <div class="wrapper">
 
@@ -57,6 +58,12 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-header">MENU</li>
+          <li class="nav-item">
+            <a href="index.php" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -139,35 +146,39 @@
               </li>
             </ul>
           </li>
-          <li class="nav-header">CLUB</li>
-          <li class="nav-item">
-            <a href="iframe.html" class="nav-link">
-              <i class="nav-icon fas fa-puzzle-piece"></i>
-              <p>Club Registration</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.1/" class="nav-link">
-              <i class="nav-icon fas fa-list"></i>
-              <p>Club List</p>
-            </a>
-          </li>
-          <li class="nav-header">USER MANAGEMENT</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-graduation-cap nav-icon"></i>
-              <p>Student List</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-address-card nav-icon"></i>
-              <p>Register MPP Member</p>
-            </a>
-          </li>
+
+                <li class="nav-header">CLUB</li>
+                <li class="nav-item">
+                  <a href="club_view.php" class="nav-link">
+                    <i class="nav-icon fas fa-list"></i>
+                    <p>Club List</p>
+                  </a>
+                </li>
+                <?php 
+          
+                  if($role == 2) {
+                    ?>
+                <li class="nav-header">USER MANAGEMENT</li>
+                <li class="nav-item">
+                  <a href="student_view.php" class="nav-link">
+                    <i class="fas fa-graduation-cap nav-icon"></i>
+                    <p>Student List</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="mpp_create.php" class="nav-link">
+                    <i class="fas fa-address-card nav-icon"></i>
+                    <p>Register MPP Member</p>
+                  </a>
+                </li>
+
+              <?php
+            }
+
+          ?>
           <li class="nav-header">SETTING</li>
           <li class="nav-item">
-            <a href="iframe.html" class="nav-link">
+            <a href="user_edit.php" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>User Setting</p>
             </a>

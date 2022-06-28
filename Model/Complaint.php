@@ -48,7 +48,7 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name, user.user_email, user.user_phone
             FROM complaint
             JOIN user ON user.user_id = complaint.user_id
             WHERE complaint.comp_id = $id";
@@ -78,7 +78,7 @@
             $instance = Database::getInstance();
             $conn = $instance->getDBConnection();
 
-            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_id, user.user_name, user.user_email, user.user_phone
             FROM complaint
             JOIN user ON user.user_id = complaint.user_id
             WHERE complaint.comp_id = $id AND complaint.user_id = $uid";
@@ -117,6 +117,28 @@
             ORDER BY (complaint.comp_status = 'IN PROGRESS') DESC ,complaint.created_at DESC";
 
 
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }else{
+                echo "<script>alert('Extracting complaint went wrong!'); window.location.href = '../view/complaint_view.php?mode=1'</script>";
+            }
+        }
+
+        public static function searchComplaintMatric($matric)
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+           
+            $sql = "SELECT complaint.*, user.matrix_no, user.user_name 
+            FROM complaint
+            JOIN user ON complaint.user_id = user.user_id
+            WHERE user.matrix_no LIKE '$matric%'
+            ORDER BY (complaint.comp_status = 'IN PROGRESS') DESC ,complaint.created_at DESC";
+
+            //var_dump($sql);
             $results = $conn->query($sql);
             if($results == TRUE) {
                 return $results; 
@@ -311,6 +333,23 @@
                 $_SESSION['modal'] = 1;
                 echo "<script>window.location.href = history.back();</script>";
                 echo  "Error: " . $sql;
+            }
+        }
+
+        public static function responseTime()
+        {
+            //get a DB connection
+            $instance = Database::getInstance();
+            $conn = $instance->getDBConnection();
+
+            $sql = "SELECT comp_id, TIMESTAMPDIFF(MINUTE, created_at, updated_at) AS DIFFERENCE 
+            FROM complaint WHERE week(created_at) = week(now()) AND comp_status <> 'IN PROGRESS'";
+
+            $results = $conn->query($sql);
+            if($results == TRUE) {
+                return $results; 
+            }else{
+               return NAN;
             }
         }
     }

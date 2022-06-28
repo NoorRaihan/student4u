@@ -169,6 +169,27 @@
         return Paperwork::getPaperworkByID($id);
     }
 
+    function searchPaperworkClub($club)
+    {
+        //get a DB connection
+        $instance = Database::getInstance();
+        $conn = $instance->getDBConnection();
+
+        $event = $conn->real_escape_string($club);
+        return Paperwork::searchPaperworkClub($club);
+    }
+
+    function searchPaperworkClubUID($club,$uid)
+    {
+        //get a DB connection
+        $instance = Database::getInstance();
+        $conn = $instance->getDBConnection();
+
+        $event = $conn->real_escape_string($club);
+        $uid = intval($uid);
+        return Paperwork::searchPaperworkClubUID($club);
+    }
+
     function deletePaperworkByUID($id)
     {
         $id = intval($id);
@@ -207,7 +228,7 @@
             $file = $_FILES['file'];
     
             //file properties;
-            $file_ext = array("txt","jpg","zip","rar","gif","png","jpeg");
+            $file_ext = array("txt","jpg","zip","rar","gif","png","jpeg","pdf");
             $filename = $file['name'];
             $file_type = $file['type'];
             $file_size = $file['size'];
@@ -332,4 +353,5 @@
             }
         }
     }
+
 ?>

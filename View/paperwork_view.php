@@ -68,14 +68,32 @@
                 <h3 class="card-title"><?php echo $title ?></h3>
 
                 <div class="card-tools">
+                <form action="" method="GET">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <?php 
+                    
+                      if($_GET['mode'] == 1) {
+                        ?>
+                            <input type="hidden" name="mode" value="1">
+                            <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                            <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                              <i class="fas fa-search"></i>
+                            </button>
+                          </div>
+                          </form>
+                        <?php
 
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
+                        if(isset($_GET['search']) && !empty($_GET['search'])) {
+
+                          if($role == 2) {
+                            $paperwork = searchPaperworkClub($_GET['search']);
+                          }else if($role == 1) {
+                            $paperwork = searchPaperworkClub($_GET['search'], $_SESSION['user_id']);
+                          }
+                        }
+                      }
+                    ?>
                   </div>
                 </div>
               </div>
