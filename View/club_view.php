@@ -9,7 +9,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>Student4U | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -110,10 +110,22 @@
                                           <form action="club_show.php" class="action-form-child">
                                             <button type="submit" name="id" value="<?php echo $data['club_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                           </form>
-                                          <form action="club_edit.php" method="GET" class="action-form-child">
-                                            <button type="submit" name="id" value="<?php echo $data['club_id'] ?>" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
-                                          </form>
-                                          <button onclick="passID(<?php echo $data['club_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash"></i></button>
+
+                                          <?php
+
+                                            if($role == 2) {
+
+                                              ?>
+
+                                            <form action="club_edit.php" method="GET" class="action-form-child">
+                                              <button type="submit" name="id" value="<?php echo $data['club_id'] ?>" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
+                                            </form>
+                                            <button onclick="passID(<?php echo $data['club_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash"></i></button>
+
+                                              <?php
+                                            }
+                                          
+                                          ?>
                                         </div>
                                     </td>
                                 </tr>
