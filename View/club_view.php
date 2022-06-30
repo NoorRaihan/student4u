@@ -2,10 +2,6 @@
   include '../controller/Authorize.php';
   include '../controller/ClubController.php';
   include_once '../controller/RoleValidation.php';
-
-  if($role != 2) {
-    header('Location: 403.php');
-  }
 ?>
 
 <!DOCTYPE html>
@@ -114,10 +110,22 @@
                                           <form action="club_show.php" class="action-form-child">
                                             <button type="submit" name="id" value="<?php echo $data['club_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                           </form>
-                                          <form action="club_edit.php" method="GET" class="action-form-child">
-                                            <button type="submit" name="id" value="<?php echo $data['club_id'] ?>" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
-                                          </form>
-                                          <button onclick="passID(<?php echo $data['club_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash"></i></button>
+
+                                          <?php
+
+                                            if($role == 2) {
+
+                                              ?>
+
+                                            <form action="club_edit.php" method="GET" class="action-form-child">
+                                              <button type="submit" name="id" value="<?php echo $data['club_id'] ?>" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
+                                            </form>
+                                            <button onclick="passID(<?php echo $data['club_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash"></i></button>
+
+                                              <?php
+                                            }
+                                          
+                                          ?>
                                         </div>
                                     </td>
                                 </tr>

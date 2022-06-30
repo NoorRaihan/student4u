@@ -3,10 +3,6 @@
   include '../controller/UserController.php';
   include_once '../controller/RoleValidation.php';
 
-  if($role != 2) {
-    header('Location: 403.php');
-  }
-
   $uid = $_SESSION['user_id'];
   $data = getUserByUID($uid);
 ?>

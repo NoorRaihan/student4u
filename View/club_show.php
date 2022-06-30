@@ -2,10 +2,6 @@
   include '../controller/Authorize.php';
   include '../controller/ClubController.php';
 
-  if($role != 2) {
-    header('Location: 403.php');
-  }
-
   $id = $_GET['id'];
   $data = getClubByID($id);
 ?>
