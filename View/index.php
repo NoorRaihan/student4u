@@ -82,7 +82,7 @@
                 <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file "></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">Complaint<br>Response Rate</span>
+                  <span class="info-box-text">Complaint<br>Response Rate (Weekly)</span>
                   <span class="info-box-number"><?php echo $complaintResponse ?></span>
                 </div>
                 <!-- /.info-box-content -->
@@ -95,7 +95,7 @@
                 <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-paperclip"></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">Paperwork<br>Response Rate</span>
+                  <span class="info-box-text">Paperwork<br>Response Rate (Weekly)</span>
                   <span class="info-box-number"><?php echo $paperworkResponse ?></span>
                 </div>
                 <!-- /.info-box-content -->

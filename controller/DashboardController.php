@@ -137,9 +137,12 @@
         }
 
         //find average
-        $avg = $sum / $total;
-
-        return hoursandmins($sum, '%02d Hours, %02d Minutes');
+        if($total == 0) {
+            return hoursandmins(0, '%02d Hours, %02d Minutes');
+        }else{
+            $avg = $sum / $total;
+            return hoursandmins($sum, '%02d Hours, %02d Minutes');
+        }
     }
 
     function paperworkResponseTime()
@@ -154,15 +157,18 @@
         }
 
         //find average
-        $avg = $sum / $total;
-
-        return hoursandmins($sum, '%02d Hours, %02d Minutes');
+        if($total == 0) {
+            return hoursandmins(0, '%02d Hours, %02d Minutes');
+        }else{
+            $avg = $sum / $total;
+            return hoursandmins($sum, '%02d Hours, %02d Minutes');
+        }
     }
 
     function hoursandmins($time, $format = '%02d:%02d')
     {
         if ($time < 1) {
-            return;
+            return sprintf($format, 0, 0);
         }
         $hours = floor($time / 60);
         $minutes = ($time % 60);
