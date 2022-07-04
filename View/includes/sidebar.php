@@ -183,6 +183,12 @@
               <p>User Setting</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="feedback.php" class="nav-link">
+              <i class="nav-icon fas fa-comment-alt"></i>
+              <p>Help and Feedback</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
