@@ -15,7 +15,17 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
-    <?php include '../view/includes/sidebar.php' ?>
+    <?php include '../view/includes/sidebar.php';
+    
+    if(!isset($_SESSION["played"]) || $_SESSION["played"] !== True){
+
+    ?>
+      <audio id="player" autoplay><source src="../view/dist/audio/welcome.wav" type="audio/wav"></audio>
+    <?php
+
+      $_SESSION['played'] = true;
+    }
+    ?>
 
     <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -109,6 +119,9 @@
         }
       ?>
         <!-- Small boxes (Stat box) -->
+        <!-- <iframe src="../view/dist/audio/silence.mp3" allow="autoplay" id="audio">
+          <audio id="player" autoplay controls><source src="../view/dist/audio/welcome.wav" type="audio/wav"></audio>
+        </iframe> -->
         <h4>Complaints</h4>
         <div class="row">
           <div class="col-lg-3 col-6">
@@ -243,7 +256,9 @@
         <div class="row">
           <!-- 16:9 aspect ratio -->
           <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="../view/dist/img/video.mp4"></iframe>
+              <video controls="true" class="embed-responsive-item">
+                <source src="../view/dist/img/video.mp4" type="video/mp4" />
+              </video>
           </div>
         </div>
         <!-- /.row (main row) -->
