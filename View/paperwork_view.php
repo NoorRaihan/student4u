@@ -68,14 +68,14 @@
                 <h3 class="card-title"><?php echo $title ?></h3>
 
                 <div class="card-tools">
-                <form action="" method="GET">
-                  <div class="input-group input-group-sm" style="width: 150px;">
                     <?php 
                     
-                      if($_GET['mode'] == 1) {
+                      if($_GET['mode'] == 1 && $role == 2) {
                         ?>
+                        <form action="" method="GET">
+                          <div class="input-group input-group-sm" style="width: 150px;">
                             <input type="hidden" name="mode" value="1">
-                            <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                            <input type="text" name="search" class="form-control float-right" placeholder="Club Name">
                             <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                               <i class="fas fa-search"></i>
@@ -158,7 +158,7 @@
                                             }
 
                                           ?>
-                                          <form action="paperwork_show.php" class="action-form-child">
+                                          <form action="paperwork_show.php" method="GET" class="action-form-child">
                                             <button type="submit" name="id" value="<?php echo $data['sub_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                           </form>
 
@@ -239,7 +239,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022 <a href="">Student4U</a>.</strong>
+    <strong>Copyright &copy; 2022 <a href="https://github.com/NoorRaihan/student4u">Student4U</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0

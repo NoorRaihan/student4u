@@ -2,7 +2,7 @@
   include '../controller/Authorize.php';
   include '../controller/ComplaintController.php';
 
-  $id = $_GET['id'];
+  $id = intval($_GET['id']);
   $data = get_complaint($id);
 ?>
 
@@ -161,7 +161,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022 <a href="">Student4U</a>.</strong>
+    <strong>Copyright &copy; 2022 <a href="https://github.com/NoorRaihan/student4u">Student4U</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0

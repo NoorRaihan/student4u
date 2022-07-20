@@ -20,7 +20,7 @@
     if(!isset($_SESSION["played"]) || $_SESSION["played"] !== True){
 
     ?>
-      <audio id="player" autoplay><source src="../view/dist/audio/welcome.wav" type="audio/wav"></audio>
+      <audio id="player" autoplay><source src="../view/dist/audio/welcome_en.wav" type="audio/wav"></audio>
     <?php
 
       $_SESSION['played'] = true;
@@ -257,7 +257,7 @@
           <!-- 16:9 aspect ratio -->
           <div class="embed-responsive embed-responsive-16by9">
               <video controls="true" class="embed-responsive-item">
-                <source src="../view/dist/img/video.mp4" type="video/mp4" />
+                <source src="../view/dist/img/korporat.mp4" type="video/mp4" />
               </video>
           </div>
         </div>
@@ -268,7 +268,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022 <a href="">Student4U</a>.</strong>
+    <strong>Copyright &copy; 2022 <a href="https://github.com/NoorRaihan/student4u">Student4U</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.2.0

@@ -99,6 +99,8 @@
               <p><u>Administration Feedback</u><br>+60177387782 : Mr. Imtiaz</p>
               <br>
               <p><u>Product Service</u><br>+60177387782 : Ms. Amirah <br>+60177387782 : Ms. Faathimah </p>
+
+              <a href="member.php">Our Team</a>
             </div>
           </div>
         </div>
@@ -108,7 +110,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022 <a href="">Student4U</a>.</strong>
+    <strong>Copyright &copy; 2022 <a href="https://github.com/NoorRaihan/student4u">Student4U</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0
@@ -147,26 +149,6 @@
   $(function () {
     bsCustomFileInput.init();
   });
-
-  function removeFile() {
-    $file_view = document.getElementById("view-file");
-    $input_form = document.getElementById("input-hide");
-    $file = document.getElementById("curr-file");
-    $file_view.style.visibility = "hidden";
-    $file_view.style.display = "none";
-    $input_form.style.visibility = "visible";
-    $file.value = "";
-
-  }
-
-  function addFile() {
-    $file_add = document.getElementById("add-file");
-    $input_form = document.getElementById("input-hide");
-    $file_add.style.visibility = "hidden";
-    $file_add.style.display = "none";
-    $input_form.style.visibility = "visible";
-
-  }
 </script>
 </body>
 </html>

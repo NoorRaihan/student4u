@@ -53,3 +53,14 @@
 .add-paperwork {
     margin: 10px;
 }
+
+.team-pic {
+    align-items: center;
+    text-align: center;
+}
+
+.img-team {
+    max-width: 100%;
+    width: 250px;
+    height: auto;
+}
