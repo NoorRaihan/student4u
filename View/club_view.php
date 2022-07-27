@@ -68,14 +68,6 @@
                 <h3 class="card-title">Club List</h3>
 
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -189,7 +181,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2022 <a href="">Student4U</a>.</strong>
+    <strong>Copyright &copy; 2022 <a href="https://github.com/NoorRaihan/student4u">Student4U</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0

@@ -68,20 +68,23 @@
                 <h3 class="card-title"><?php echo $title ?></h3>
 
                 <div class="card-tools">
-                <form action="" method="GET">
-                  <div class="input-group input-group-sm" style="width: 150px;">
+                  
                   <?php 
                     
                     if($_GET['mode'] == 1 && $role == 2) {
                       ?>
+                      <div class="input-group input-group-sm" style="width: 150px;">
+                        <form action="" method="GET">
                           <input type="hidden" name="mode" value="1">
-                          <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                          <input type="text" name="search" class="form-control float-right" placeholder="Matric No">
                           <div class="input-group-append">
                           <button type="submit" class="btn btn-default">
                             <i class="fas fa-search"></i>
                           </button>
                         </div>
                         </form>
+                        </div>
+                        </div>
                       <?php
 
                       if(isset($_GET['search']) && !empty($_GET['search'])) {
@@ -90,8 +93,8 @@
                       }
                     }
                   ?>
-                  </div>
-                </div>
+                  
+                
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0 table-complaint-parent">
@@ -151,30 +154,30 @@
 
                                     ?>"><?php echo $data['comp_status'] ?></span></td>
                                     <td>
-                                        <div class="action-form">
+                                      <div class="action-form">
                                             <?php 
                                             
                                               if($data['comp_status'] != "APPROVED" && $data['comp_status'] != "REJECTED" && $role == 2) {
 
                                                 ?>
-                                                  <form action="complaint_response.php" class="action-form-child">
+                                                  <form style="margin-right:20px" action="complaint_response.php" method="GET">
                                                     <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-reply"></i></button>
                                                   </form>
                                                 <?php
                                               }
 
-                                            ?>
-                                            <form action="complaint_show.php" class="action-form-child">
-                                              <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            </form>
+                                              ?>
+                                              <form action="complaint_show.php" method="GET" >
+                                                <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                              </form>
 
-                                            <?php 
+                                              <?php 
                                             
                                             if($data['comp_status'] != "APPROVED" && $data['comp_status'] != "REJECTED" && $role == 1) {
 
                                               ?>
                                                 <form action="complaint_edit.php" method="GET" class="action-form-child">
-                                                  <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" href="complaint_view.php" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
+                                                  <button type="submit" name="id" value="<?php echo $data['comp_id'] ?>" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></button>
                                                 </form>
                                                 <button onclick="passID(<?php echo $data['comp_id'] ?>)" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete"><i class="fas fa-trash"></i></button>
                                               <?php

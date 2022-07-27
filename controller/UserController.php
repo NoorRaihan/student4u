@@ -34,7 +34,7 @@
         $user = new User();
         $user->id = $uid;
         $user->matrix_no = $curr_user['matrix_no'];
-        $user->user_name = $conn->real_escape_string($_POST['name']);
+        $user->user_name = strtoupper($conn->real_escape_string($_POST['name']));
         $user->user_gender = $conn->real_escape_string($_POST['gender']);
         $user->user_phone = $conn->real_escape_string($_POST['phone']);
         $user->user_email = $conn->real_escape_string($_POST['email']);

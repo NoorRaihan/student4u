@@ -17,7 +17,7 @@
         $user = new User();
 
         $user->matrix_no = $conn->real_escape_string($_POST['matrix']);
-        $user->user_name = $conn->real_escape_string($_POST['fname']);
+        $user->user_name = strtoupper($conn->real_escape_string($_POST['fname']));
         $user->user_phone = $conn->real_escape_string($_POST['phone']);
         $user->user_email = $conn->real_escape_string($_POST['email']);
         $user->user_password = $conn->real_escape_string($_POST['password']);
