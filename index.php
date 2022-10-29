@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Student4U </title>
+  <title>CPS v1.6 </title>
   <link rel="shortcut icon" href="image/favicon.png" type="image/x-icon">
   <!-- Bootstrap , fonts & icons  -->
   <link rel="stylesheet" href="./css/bootstrap.css">
@@ -38,7 +38,7 @@
         <nav class="navbar site-navbar">
           <!-- Brand Logo-->
           <div class="brand-logo" style="font-family: 'Source Sans Pro'; color: white">
-            <strong><h1>Student4U</h1></strong>
+            <strong><h1>CPS v1.6</h1></strong>
           </div>
     </header>
     <div class="hero-area-l-17 position-relative">

@@ -14,6 +14,7 @@
 
     $user = User::get_user_role(NULL, $matrix, $role);
     //var_dump($user['user_password']);
+    session_start();
     if(!empty($user)) {
 
         if(password_verify($password, $user['user_password'])) {
@@ -29,17 +30,22 @@
                 $_SESSION['role'] = $user['role_id'];
                 $_SESSION['id'] = $session_id;
 
-                echo "<script>alert('Success!'); window.location.href = '../view/index.php'</script>";
+                echo "<script>window.location.href = '../view/index.php'</script>";
                 exit();
             } else {
-                echo "<script>alert('Not Authorized!'); window.location.href = '../view/login.php'</script>";
+                //echo "<script>alert('Not Authorized!'); window.location.href = '../view/login.php'</script>";
+                $_SESSION['error'] = "Not Authorized";
+                echo "<script>window.location.href = history.back()</script>";
             }
             
         } else {
-            echo "<script>alert('Wrong password'); window.location.href = '../view/login.php'</script>";
+            $_SESSION['error'] = "Wrong Password";
+            echo "<script>window.location.href = history.back()</script>";
         }
 
     } else {
-        echo "<script>alert('Matric number not exist in current role'); window.location.href = '../view/login.php'</script>";
+        //echo "<script>alert('Matric number not exist in current role'); window.location.href = '../view/login.php'</script>";
+        $_SESSION['error'] = "ID does not exist in the current role";
+        echo "<script>window.location.href = history.back()</script>";
     }
 ?>
